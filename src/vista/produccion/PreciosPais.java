@@ -5,6 +5,8 @@
 
 package vista.produccion;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author jose-
@@ -14,6 +16,7 @@ public class PreciosPais extends javax.swing.JFrame {
     /** Creates new form PreciosPais */
     public PreciosPais() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoApp.jpg")).getImage());
     }
 
     /** This method is called from within the constructor to

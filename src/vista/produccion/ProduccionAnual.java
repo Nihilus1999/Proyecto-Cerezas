@@ -8,6 +8,7 @@ import controlador.controllerLogin;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,6 +21,7 @@ public class ProduccionAnual extends javax.swing.JFrame {
      */
     public ProduccionAnual() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoApp.jpg")).getImage());
     }
 
     public void llenarCbCultivoProduA(){

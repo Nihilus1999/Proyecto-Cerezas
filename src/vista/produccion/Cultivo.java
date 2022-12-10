@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,6 +35,7 @@ public class Cultivo extends javax.swing.JFrame {
     
     public Cultivo() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoApp.jpg")).getImage());
     }
     
     public void insert(){
