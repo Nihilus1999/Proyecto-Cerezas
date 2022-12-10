@@ -27,9 +27,6 @@ public class controllerAdopcion implements ActionListener {
         this.ap.btnPadrino.addActionListener(this);
         this.ap.btnPrograma.addActionListener(this);
         this.pa.btnRegresar.addActionListener(this);
-        this.pa.btnInsertar.addActionListener(this);
-        this.pa.btnModificar.addActionListener(this);
-        this.pa.btnDelete.addActionListener(this);
         this.pap.btnRegresar.addActionListener(this);
     }
     
@@ -56,20 +53,7 @@ public class controllerAdopcion implements ActionListener {
             pa.setLocationRelativeTo(null);
             pa.setVisible(true);
             ap.setVisible(false);
-            pa.llenarPadrino();
         }
-        
-        if(ae.getSource()==pa.btnInsertar){
-              pa.inserts();
-          }
-          
-          if(ae.getSource()==pa.btnDelete){
-              pa.delete();
-          }
-          
-          if(ae.getSource()==pa.btnModificar){
-              pa.update();
-          }
         
         if(ae.getSource()==pa.btnRegresar){
             iniciarAdopcion();
