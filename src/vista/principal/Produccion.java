@@ -32,7 +32,7 @@ public class Produccion extends javax.swing.JFrame {
         btnVariedadCereza = new javax.swing.JButton();
         btnCultivo = new javax.swing.JButton();
         btnPrecios = new javax.swing.JButton();
-        btnProduccion = new javax.swing.JButton();
+        btnProduccionAnual = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -100,21 +100,21 @@ public class Produccion extends javax.swing.JFrame {
         });
         getContentPane().add(btnPrecios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 200, 45));
 
-        btnProduccion.setBackground(new java.awt.Color(13, 77, 24));
-        btnProduccion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnProduccion.setForeground(new java.awt.Color(255, 255, 255));
-        btnProduccion.setText("Produccion Anual");
-        btnProduccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        btnProduccion.setContentAreaFilled(false);
-        btnProduccion.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnProduccionAnual.setBackground(new java.awt.Color(13, 77, 24));
+        btnProduccionAnual.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnProduccionAnual.setForeground(new java.awt.Color(255, 255, 255));
+        btnProduccionAnual.setText("Produccion Anual");
+        btnProduccionAnual.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnProduccionAnual.setContentAreaFilled(false);
+        btnProduccionAnual.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnProduccionMouseEntered(evt);
+                btnProduccionAnualMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnProduccionMouseExited(evt);
+                btnProduccionAnualMouseExited(evt);
             }
         });
-        getContentPane().add(btnProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 200, 45));
+        getContentPane().add(btnProduccionAnual, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 200, 45));
 
         jPanel4.setBackground(new java.awt.Color(82, 171, 28));
 
@@ -271,13 +271,13 @@ public class Produccion extends javax.swing.JFrame {
         btnPrecios.setContentAreaFilled(false);
     }//GEN-LAST:event_btnPreciosMouseExited
 
-    private void btnProduccionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduccionMouseEntered
-        btnProduccion.setContentAreaFilled(true);
-    }//GEN-LAST:event_btnProduccionMouseEntered
+    private void btnProduccionAnualMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduccionAnualMouseEntered
+        btnProduccionAnual.setContentAreaFilled(true);
+    }//GEN-LAST:event_btnProduccionAnualMouseEntered
 
-    private void btnProduccionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduccionMouseExited
-        btnProduccion.setContentAreaFilled(false);
-    }//GEN-LAST:event_btnProduccionMouseExited
+    private void btnProduccionAnualMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduccionAnualMouseExited
+        btnProduccionAnual.setContentAreaFilled(false);
+    }//GEN-LAST:event_btnProduccionAnualMouseExited
 
     /**
      * @param args the command line arguments
@@ -286,7 +286,7 @@ public class Produccion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCultivo;
     public javax.swing.JButton btnPrecios;
-    public javax.swing.JButton btnProduccion;
+    public javax.swing.JButton btnProduccionAnual;
     public javax.swing.JButton btnRegresar;
     public javax.swing.JButton btnVariedadCereza;
     private javax.swing.JLabel jAtras;

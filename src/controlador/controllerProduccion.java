@@ -31,7 +31,7 @@ public class controllerProduccion implements ActionListener{
         this.p.btnVariedadCereza.addActionListener(this);
         this.p.btnCultivo.addActionListener(this);
         this.p.btnPrecios.addActionListener(this);
-        this.p.btnProduccion.addActionListener(this);
+        this.p.btnProduccionAnual.addActionListener(this);
         this.vc.btnDelete.addActionListener(this);
         this.vc.btnInsertar.addActionListener(this);
         this.vc.btnRegresar.addActionListener(this);
@@ -130,8 +130,8 @@ public class controllerProduccion implements ActionListener{
               pp.setVisible(false);
           }
           
-          if(ae.getSource()==p.btnProduccion){
-            pa.setTitle("Variedad Cerezas");
+          if(ae.getSource()==p.btnProduccionAnual){
+            pa.setTitle("Produccion Anual");
             pa.setResizable(false);
             pa.setLocationRelativeTo(null);
             pa.setVisible(true);
