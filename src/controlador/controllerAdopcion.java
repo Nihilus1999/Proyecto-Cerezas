@@ -31,6 +31,9 @@ public class controllerAdopcion implements ActionListener {
         this.pa.btnModificar.addActionListener(this);
         this.pa.btnDelete.addActionListener(this);
         this.pap.btnRegresar.addActionListener(this);
+        this.pap.btnInsertar.addActionListener(this);
+        this.pap.btnModificar.addActionListener(this);
+        this.pap.btnDelete.addActionListener(this);
     }
     
     public void iniciarAdopcion(){
@@ -83,13 +86,31 @@ public class controllerAdopcion implements ActionListener {
             pap.setLocationRelativeTo(null);
             pap.setVisible(true);
             ap.setVisible(false);
+            pap.llenarPadrino();
+            pap.llenarProductor();
+            pap.llenarPrograma();
+            pap.llenarVariedad();
         }
+        
+        if(ae.getSource()==pap.btnInsertar){
+              pap.inserts();
+          }
+          
+          if(ae.getSource()==pap.btnDelete){
+              pap.delete();
+          }
+          
+          if(ae.getSource()==pap.btnModificar){
+              pap.update();
+          }
         
         if(ae.getSource()==pap.btnRegresar){
             iniciarAdopcion();
             ap.setVisible(true);
             pap.setVisible(false);
         }
+        
+        
         
         
     }
