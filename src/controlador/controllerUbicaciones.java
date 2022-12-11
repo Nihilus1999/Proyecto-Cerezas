@@ -39,6 +39,9 @@ public class controllerUbicaciones implements ActionListener{
         this.pa.btnDelete.addActionListener(this);
         this.pa.btnModificar.addActionListener(this);
         this.re.btnRegresar.addActionListener(this);
+        this.re.btnInsertar.addActionListener(this);
+        this.re.btnDelete.addActionListener(this);
+        this.re.btnModificar.addActionListener(this);
     }
 
     void iniciarUbicaciones() {
@@ -117,7 +120,21 @@ public class controllerUbicaciones implements ActionListener{
              re.setLocationRelativeTo(null);
              re.setVisible(true);
              ub.setVisible(false);
+             re.llenarPais();
+             re.llenarRegion();
          }
+         
+         if(ae.getSource()==re.btnInsertar){
+              re.inserts();
+          }
+          
+          if(ae.getSource()==re.btnDelete){
+              re.delete();
+          }
+          
+          if(ae.getSource()==re.btnModificar){
+              re.update();
+          }
          
          if(ae.getSource()==re.btnRegresar){
              iniciarUbicaciones();
