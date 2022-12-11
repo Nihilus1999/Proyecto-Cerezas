@@ -169,25 +169,13 @@ public class Padrino extends javax.swing.JFrame {
                     + txtNombre2.getText()+"')"
                     + " where id= "+ id;
 
-                ResultSet rs = stmt.executeQuery( "select nombre from aja_padrino" );
-
-                       int flag=0;
-
-                       while ( rs.next() ) {
-                           if( rs.getString(1).equals(txtNombre.getText())){
-                               JOptionPane.showMessageDialog(null, "El padrino que intento registrar ya existe");
-                               flag=1;
-                               break;
-                           }
-                        }
-
-                       if(flag==0){
-                               stmt.executeUpdate(sql);
+                ResultSet rs = stmt.executeQuery( "select documento_identidad from aja_padrino" );
+                
+                stmt.executeUpdate(sql);
                                controllerLogin.conexion.commit();
                               JOptionPane.showMessageDialog(null,"El padrino se registro con exito");
                                llenarPadrino();
                                limpiar();
-                           }
 
             }catch (SQLException e) {
                 e.printStackTrace();
