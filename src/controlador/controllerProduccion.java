@@ -24,7 +24,7 @@ public class controllerProduccion implements ActionListener{
     Cultivo c = new Cultivo();
     ProduccionAnual pa = new ProduccionAnual();
     PreciosPais pp = new PreciosPais();
-    
+
     public controllerProduccion(Produccion produccion){
         this.p = produccion;
         this.p.btnRegresar.addActionListener(this);
@@ -45,13 +45,13 @@ public class controllerProduccion implements ActionListener{
         this.pa.btnRegresar.addActionListener(this);
         this.pa.btnEliminar.addActionListener(this);
     }
-    
+
     public void iniciarProduccion(){
         p.setTitle("Produccion de Cerezas"); //El titulo que tendra en la ventana
         p.setResizable(false);
         p.setLocationRelativeTo(null);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         
@@ -61,7 +61,7 @@ public class controllerProduccion implements ActionListener{
             ctrl.iniciarMenu();
             p.setVisible(false);
         }
-        
+
         if(ae.getSource()==p.btnVariedadCereza){
             vc.setTitle("Variedad Cerezas");
             vc.setResizable(false);
@@ -71,7 +71,7 @@ public class controllerProduccion implements ActionListener{
             vc.llenarPais();
             vc.llenarVariedad();
         }
-          
+
           if(ae.getSource()==vc.btnInsertar){
               vc.insert();
           }
