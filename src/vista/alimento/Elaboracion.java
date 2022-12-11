@@ -101,6 +101,7 @@ public class Elaboracion extends javax.swing.JFrame {
         tbElavoracion = new javax.swing.JTable();
         btnInsertar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -191,6 +192,16 @@ public class Elaboracion extends javax.swing.JFrame {
         btnRegresar.setText("Regresar");
         jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 550, 120, 30));
 
+        btnBorrar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnBorrar.setForeground(new java.awt.Color(0, 0, 0));
+        btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 120, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -225,12 +236,17 @@ public class Elaboracion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbRecetaActionPerformed
 
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBorrar;
     public javax.swing.JButton btnInsertar;
     public javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cbReceta;
