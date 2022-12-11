@@ -14,7 +14,7 @@ import java.sql.Statement;
 
 public class Productores extends javax.swing.JFrame {
     
-    int id;
+    int id=0;
     int id_pais, id_ciudad, id_region, id_asoc, id_coop;
     String part1, part2, part3, part4, part5, part6, part7, part8, part9, part10, part11;
     ResultSet rs;
@@ -29,6 +29,8 @@ public class Productores extends javax.swing.JFrame {
     }
 
     public void llenarPais(){
+        cbPais.removeAllItems();
+        cbPais.addItem("");
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
             ResultSet rs = stmt.executeQuery( "select nombre from aja_pais" );
@@ -42,6 +44,8 @@ public class Productores extends javax.swing.JFrame {
     }
     
      public void llenarCiudad(){
+        cbCiudad.removeAllItems();
+        cbCiudad.addItem("");
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
             ResultSet rs = stmt.executeQuery( "select nombre from aja_ciudad order by nombre asc" );
@@ -55,12 +59,46 @@ public class Productores extends javax.swing.JFrame {
     }
      
       public void llenarRegion(){
+        cbRegion.removeAllItems();
+        cbRegion.addItem("");          
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
             ResultSet rs = stmt.executeQuery( "select nombre from aja_region order by nombre asc" );
             while ( rs.next() ) {
             String nombre = rs.getString("nombre");
             cbRegion.addItem(nombre);
+            }
+        } catch (SQLException e) {
+                e.printStackTrace();
+        }
+    }
+      
+    public void llenarAsoc(){
+        cbAsoc.removeAllItems();
+        cbAsoc.addItem("");        
+        try {
+            Statement stmt = controllerLogin.conexion.createStatement();
+            ResultSet rs = stmt.executeQuery( "select nombre from aja_asociacion_regional order by nombre asc" );
+            while ( rs.next() ) {
+                String nombre = rs.getString(1);
+                cbAsoc.addItem(nombre);
+            }
+        } catch (SQLException e) {
+                e.printStackTrace();
+        }
+    }
+    
+    public void llenarCoop(){
+        cbCoop.removeAllItems();
+        cbCoop.addItem("");        
+        try {
+            Statement stmt = controllerLogin.conexion.createStatement();
+            ResultSet rs = stmt.executeQuery( "select coop.nombre"
+                    + " from aja_productor coop"
+                    + " order by nombre asc" );
+            while ( rs.next() ) {
+            String nombre = rs.getString("nombre");
+            cbCoop.addItem(nombre);
             }
         } catch (SQLException e) {
                 e.printStackTrace();
@@ -102,49 +140,54 @@ public class Productores extends javax.swing.JFrame {
         cbPais.setSelectedIndex(0);
         cbProductor.setSelectedIndex(0);
         cbProductorEli.setSelectedIndex(0);
+        cbAsoc.setSelectedIndex(0);
+        cbCoop.setSelectedIndex(0);
+        txtDireccion.setText(null);
+        txtNom.setText(null);
+        txtPaginaWeb.setText(null);
     }
     
     public void inserts(){
-        if(txtEnvase.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "El campo no puede estar vacio");
-        } else if ( validarNombre(txtEnvase.getText()) ==false){
-            JOptionPane.showMessageDialog(null, "El campo nombre no puede tener numeros");
-        }else{
-            try {
-           Statement stmt = controllerLogin.conexion.createStatement();
-           String sql = "INSERT INTO aja_variedad_de_cerezas (id_pais,nombre,descripcion,especie,precocidad) values "
-                   + "((select id from aja_pais where nombre='"
-                   + cbPais.getSelectedItem().toString() + "'),'"
-                   + txtEnvase.getText() +"', '"
-                   + txtDireccion.getText() +"', '"
-                   + cbRegion.getSelectedItem().toString() +"', '"
-                   + cbCiudad.getSelectedItem().toString()+"');" ;
+            if(txtEnvase.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "El campo no puede estar vacio");
+            } else if ( validarNombre(txtEnvase.getText()) ==false){
+                JOptionPane.showMessageDialog(null, "El campo nombre no puede tener numeros");
+            }else{
+                try {
+                    Statement stmt = controllerLogin.conexion.createStatement();
+                    String sql = "INSERT INTO aja_productor "
+                            + " (nombre, direccion, envase_estandar, id_ciudad, id_pais_ciudad, id_region, id_pais_region, pagina_web) VALUES  "
+                            + " ( '"+txtNom.getText()+"', '"+txtDireccion.getText()+"', '"+txtEnvase.getText()+"',"
+                            + " (select id from aja_ciudad where nombre='"+cbCiudad.getSelectedItem().toString()+"' ), "
+                            + " (select id from aja_pais where nombre='"+cbPais.getSelectedItem().toString()+"' ), "
+                            + "(select id from aja_region where nombre='"+cbRegion.getSelectedItem().toString()+"' ), "
+                            + " (select id from aja_pais where nombre='"+cbPais.getSelectedItem().toString()+"' ), "
+                            + "'"+txtPaginaWeb.getText()+"')" ;
+                 
+                    
+                    int flag=0;
+   /*ResultSet rs = stmt.executeQuery( "select var.nombre, pa.nombre from aja_variedad_de_cerezas var, aja_pais pa where var.id_pais = pa.id" );
 
-                   ResultSet rs = stmt.executeQuery( "select var.nombre, pa.nombre from aja_variedad_de_cerezas var, aja_pais pa where var.id_pais = pa.id" );
+                    while ( rs.next() ) {
+                        if( rs.getString(1).equals(txtEnvase.getText()) && rs.getString(2).equals(cbPais.getSelectedItem().toString())){
+                            JOptionPane.showMessageDialog(null, "La variedad que intento registrar ya existe");
+                            flag=1;
+                            break;
+                        }
+                    }//*/
 
-                   int flag=0;
-
-                   while ( rs.next() ) {
-                       if( rs.getString(1).equals(txtEnvase.getText()) && rs.getString(2).equals(cbPais.getSelectedItem().toString())){
-                           JOptionPane.showMessageDialog(null, "La variedad que intento registrar ya existe");
-                           flag=1;
-                           break;
-                       }
+                    if(flag==0){
+                        stmt.executeUpdate(sql);
+                        controllerLogin.conexion.commit();
+                        JOptionPane.showMessageDialog(null,"Se he registrado exitosamente");
+                        llenarProductor();
+                        limpiar();
                     }
 
-                   if(flag==0){
-                           stmt.executeUpdate(sql);
-                           controllerLogin.conexion.commit();
-                           JOptionPane.showMessageDialog(null,"Se he registrado exitosamente");
-                           llenarProductor();
-                           limpiar();
-                       }
-
-                     } catch (SQLException e) {
-                           e.printStackTrace();
-                   }   
-        }
-
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
     }
 
     public void delete(){
@@ -152,19 +195,23 @@ public class Productores extends javax.swing.JFrame {
                 Statement stmt = controllerLogin.conexion.createStatement();
                 String sql = "DELETE FROM aja_productor where  id = " + id;
 
-                ResultSet rs = stmt.executeQuery( "select id from aja_variedad_de_cerezas" );
+                ResultSet rs = stmt.executeQuery( "select id from aja_productor" );
 
               int flag=0;
 
               while ( rs.next() ) {
                    if(rs.getInt("id") == id){
-                       stmt.executeUpdate(sql);
-                       controllerLogin.conexion.commit();
-                       JOptionPane.showMessageDialog(null,"Se ha borrado el registrado exitosamente");
-                       llenarProductor();
-                       limpiar();
-                       flag = 1;
-                       break;
+                       try {
+                             stmt.executeUpdate(sql);
+                             controllerLogin.conexion.commit();
+                             JOptionPane.showMessageDialog(null,"Se ha borrado el registrado exitosamente");
+                             llenarProductor();
+                             limpiar();
+                             break;
+                       } catch (Exception e) {
+                           JOptionPane.showMessageDialog(null,"No se puede borrar tiene trabajos con proveedores");
+                       }
+                       flag=1;
                    }
                 }
 
@@ -178,8 +225,6 @@ public class Productores extends javax.swing.JFrame {
            }     
     }
     
-   
-    
     public void update(){
          if(txtEnvase.getText().equals("")){
             JOptionPane.showMessageDialog(null, "El campo no puede estar vacio");
@@ -188,16 +233,12 @@ public class Productores extends javax.swing.JFrame {
         }else{
             try{
                 Statement stmt = controllerLogin.conexion.createStatement();
-                String sql = "update aja_productor prod " 
-                        + "set (nombre,especie,precocidad,descripcion,id_pais)= " 
-                        + "('"+ txtEnvase.getText() +"','"+ cbRegion.getSelectedItem().toString() +"','"+ cbCiudad.getSelectedItem().toString() +"','"+ txtDireccion.getText() +"'," 
-                        + "(select pais.id from aja_pais pais where pais.nombre='"+ cbPais.getSelectedItem().toString() +"') ) "
-                        + "where vdc.id = " + id;
-
-                ResultSet rs = stmt.executeQuery( "select var.nombre, pa.nombre from aja_variedad_de_cerezas var, aja_pais pa where var.id_pais = pa.id" );
-
+                // sobreescribe datos pero sirve 
+                String sql = "update aja_productor prod "
+                        +  " SET nombre='"+txtNom.getText()+"' , direccion='"+txtDireccion.getText()+"' , envase_estandar='"+txtEnvase.getText()+"', id_ciudad="+id_ciudad+" , id_pais_ciudad= "+id_pais+" , id_region="+id_region+", id_pais_region="+id_pais+", id_padre="+id_coop+", pagina_web= '"+txtPaginaWeb+"'      "
+                        + " WHERE id="+id+" ";
+                
                        int flag=0;
-
                        while ( rs.next() ) {
                            if( rs.getString(1).equals(txtEnvase.getText()) && rs.getString(2).equals(cbPais.getSelectedItem().toString())){
                                JOptionPane.showMessageDialog(null, "La variedad que intento registrar ya existe");
@@ -205,7 +246,6 @@ public class Productores extends javax.swing.JFrame {
                                break;
                            }
                         }
-
                        if(flag==0){
                                stmt.executeUpdate(sql);
                                controllerLogin.conexion.commit();
@@ -384,7 +424,7 @@ public class Productores extends javax.swing.JFrame {
         txtPaginaWeb.setBorder(null);
         jScrollPane2.setViewportView(txtPaginaWeb);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, 290, 20));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, 290, 40));
 
         jDireccion.setBackground(new java.awt.Color(0, 0, 0));
         jDireccion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -413,6 +453,16 @@ public class Productores extends javax.swing.JFrame {
         jAsoc.setText("Asociacion que pertenece:");
         jPanel1.add(jAsoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, -1, 24));
 
+        cbAsoc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbAsocItemStateChanged(evt);
+            }
+        });
+        cbAsoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAsocActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbAsoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 290, 25));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -436,16 +486,19 @@ public class Productores extends javax.swing.JFrame {
                 cbProductorEli.setEnabled(false);
                 btnModificar.setEnabled(true);
                 btnInsertar.setEnabled(false);
+                
                 try {
                     Statement stmt = controllerLogin.conexion.createStatement();
                     
                     ResultSet rs = stmt.executeQuery( "select productor.id, ciudad.id, pais.id, productor.nombre, productor.direccion, productor.envase_estandar, productor.pagina_web, "
-                            + "ciudad.nombre, pais.nombre "
-                            + "from aja_productor productor, aja_ciudad ciudad, aja_pais pais "
-                            + "where pais.id=ciudad.id_pais and productor.id_pais_ciudad= ciudad.id_pais  and productor.id_ciudad= ciudad.id");
+                            + " ciudad.nombre, pais.nombre "
+                            + " from aja_productor productor, aja_ciudad ciudad, aja_pais pais "
+                            + " where pais.id=ciudad.id_pais and productor.id_pais_ciudad= ciudad.id_pais  and productor.id_ciudad= ciudad.id "
+                            + " and productor.nombre = '"+ part1.trim() +"' "
+                            + " and pais.nombre = '"+ part3.trim() +"' "
+                            + "  and ciudad.nombre = '"+ part2.trim() +"' " );
 
                     while( rs.next() ){
-
                          id = rs.getInt(1);
                          id_ciudad= rs.getInt(2);
                          id_pais= rs.getInt(3);
@@ -465,7 +518,7 @@ public class Productores extends javax.swing.JFrame {
                     // luego de llenar los cuadros valido si es que tiene region 
                     ResultSet rs2 = stmt.executeQuery( "select  reg.id, reg.nombre, asoc.id, asoc.nombre "
                             + " from aja_productor productor, aja_ciudad ciudad, aja_pais pais, aja_region reg, "
-                            + " aja_asociacion_regional asoc, aja_representacion rep"
+                            + " aja_asociacion_regional asoc, aja_representacion rep "
                             + " where pais.id=ciudad.id_pais and productor.id_pais_ciudad= ciudad.id_pais  and productor.id_ciudad= ciudad.id "
                             + " and reg.id_pais=pais.id and productor.id_pais_region= reg.id_pais  and productor.id_region= reg.id  "
                             + " and asoc.id_region= reg.id and asoc.id_pais=reg.id_pais and productor.id=rep.id_productor and asoc.id=rep.id_asociacion "
@@ -474,7 +527,8 @@ public class Productores extends javax.swing.JFrame {
                     while( rs2.next() ){
                         id_region= rs2.getInt(1);
                         id_asoc= rs2.getInt(3);
-                        String reg= rs2.getString(2), asoc= rs2.getString(4);
+                        String reg= rs2.getString(2);
+                        String asoc= rs2.getString(4);
                         cbRegion.setSelectedItem(reg);
                         cbAsoc.setSelectedItem(asoc);
                     }
@@ -487,7 +541,7 @@ public class Productores extends javax.swing.JFrame {
                     while( rs3.next() ){
                         id_coop= rs3.getInt(1);
                         String coop= rs3.getString(2);
-                        cbRegion.setSelectedItem(coop);
+                        cbCoop.setSelectedItem(coop);
                     }
                 } catch (SQLException e) {
                         e.printStackTrace();
@@ -512,11 +566,12 @@ public class Productores extends javax.swing.JFrame {
                 try {
                     Statement stmt = controllerLogin.conexion.createStatement();
                     ResultSet rs = stmt.executeQuery( "select pd.id, pd.nombre, pd.direccion, pd.envase_estandar,pd.pagina_web,"
-                            + " pd.id_ciudad, pd.id_pais_ciudad, pd.region "
-                            + "from aja_productor pd, aja_pais pais, aja_region region, aja_ciudad ciudad "
-                            + "where pd.nombre = '"+ part1.trim() +"' "
-                            + "and pd.id_pais = (select pa.id from aja_pais pa where pa.nombre = '"+ part2.trim() +"') "
-                            + "and pais.id=var.id_pais" );
+                            + " pd.id_ciudad, pd.id_pais_ciudad, pd.id_region "
+                            + " from aja_productor pd, aja_pais pais, aja_region region, aja_ciudad ciudad "
+                            + " where pd.nombre = '"+ part1.trim() +"' "
+                            + " and pais.nombre = '"+ part3.trim() +"' "
+                            + "  and ciudad.id_pais=pais.id and pd.id_pais_ciudad=ciudad.id_pais and pd.id_ciudad=ciudad.id"
+                            + "  and ciudad.nombre = '"+ part2.trim() +"' " );
                         while( rs.next() ){
                             id = rs.getInt(1);
                         }
@@ -530,12 +585,37 @@ public class Productores extends javax.swing.JFrame {
                 cbProductor.setEnabled(true);
             }
         }
-        
     }//GEN-LAST:event_cbProductorEliActionPerformed
 
     private void cbCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCiudadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCiudadActionPerformed
+
+    private void cbAsocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAsocActionPerformed
+        // TODO add your handling code here:
+        if (!cbAsoc.getSelectedItem().equals("")) {
+            try {
+                Statement stmt = controllerLogin.conexion.createStatement();
+                ResultSet rs = stmt.executeQuery( "select reg.id , reg.nombre"
+                        + "  from aja_region reg, aja_asociacion_regional asoc, aja_pais pais "
+                        + " where reg.id = " + id_region+" " 
+                        + " and reg.id=asoc.id_region and asoc.id_pais=reg.id_pais and reg.id_pais= pais.id  " );
+                    while( rs.next() ){
+                        id = rs.getInt(1);
+                        String reg= rs.getString(2);
+                        cbRegion.setSelectedItem(reg);
+                    }
+            } catch (SQLException e) {
+                    e.printStackTrace();
+            }
+            cbRegion.setEnabled(false);
+        }else cbRegion.setEnabled(true);
+    }//GEN-LAST:event_cbAsocActionPerformed
+
+    private void cbAsocItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAsocItemStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cbAsocItemStateChanged
 
     /**
      * @param args the command line arguments
