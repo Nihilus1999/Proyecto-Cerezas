@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import vista.produccion.Cultivo;
@@ -26,6 +27,7 @@ public class Elaboracion extends javax.swing.JFrame {
     
     public Elaboracion() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoApp.jpg")).getImage());
         modelo = (DefaultTableModel) tbElavoracion.getModel();
     }
 
