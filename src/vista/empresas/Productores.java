@@ -30,7 +30,7 @@ public class Productores extends javax.swing.JFrame {
 
     public void llenarPais(){
         cbPais.removeAllItems();
-        cbPais.addItem("");
+        cbPais.addItem(" ");
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
             ResultSet rs = stmt.executeQuery( "select nombre from aja_pais" );
@@ -45,7 +45,7 @@ public class Productores extends javax.swing.JFrame {
     
      public void llenarCiudad(){
         cbCiudad.removeAllItems();
-        cbCiudad.addItem("");
+        cbCiudad.addItem(" ");
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
             ResultSet rs = stmt.executeQuery( "select nombre from aja_ciudad order by nombre asc" );
@@ -60,7 +60,7 @@ public class Productores extends javax.swing.JFrame {
      
       public void llenarRegion(){
         cbRegion.removeAllItems();
-        cbRegion.addItem("");          
+        cbRegion.addItem(" ");          
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
             ResultSet rs = stmt.executeQuery( "select nombre from aja_region order by nombre asc" );
@@ -75,7 +75,7 @@ public class Productores extends javax.swing.JFrame {
       
     public void llenarAsoc(){
         cbAsoc.removeAllItems();
-        cbAsoc.addItem("");        
+        cbAsoc.addItem(" ");        
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
             ResultSet rs = stmt.executeQuery( "select nombre from aja_asociacion_regional order by nombre asc" );
@@ -90,7 +90,7 @@ public class Productores extends javax.swing.JFrame {
     
     public void llenarCoop(){
         cbCoop.removeAllItems();
-        cbCoop.addItem("");        
+        cbCoop.addItem(" ");        
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
             ResultSet rs = stmt.executeQuery( "select coop.nombre"
@@ -149,7 +149,7 @@ public class Productores extends javax.swing.JFrame {
     
     public void inserts(){
             
-            if(txtEnvase.getText().equals("")){
+            if(txtEnvase.getText().equals(" ")){
                 JOptionPane.showMessageDialog(null, "El campo no puede estar vacio");
             } else if ( validarNombre(txtEnvase.getText()) ==false){
                 JOptionPane.showMessageDialog(null, "El campo nombre no puede tener numeros");
@@ -230,7 +230,7 @@ public class Productores extends javax.swing.JFrame {
     
     public void update(){
         cortarCB(cbProductor);
-         if(txtEnvase.getText().equals("")){
+         if(txtEnvase.getText().equals(" ")){
             JOptionPane.showMessageDialog(null, "El campo no puede estar vacio");
         } else if ( validarNombre(txtEnvase.getText()) ==false){
             JOptionPane.showMessageDialog(null, "El campo nombre no puede tener numeros");
@@ -240,11 +240,20 @@ public class Productores extends javax.swing.JFrame {
             try{
                 Statement stmt = controllerLogin.conexion.createStatement();
                 // sobreescribe datos pero sirve 
-                String sql = "update aja_productor prod "
-                        +  " SET nombre='"+txtNom.getText()+"' , direccion='"+txtDireccion.getText()+"' , envase_estandar='"+txtEnvase.getText()+"', id_ciudad="+id_ciudad+" , id_pais_ciudad= "+id_pais+" , id_region="+id_region+", id_pais_region="+id_pais+", id_padre="+id_coop+", pagina_web= '"+txtPaginaWeb+"'"
-                        + " WHERE id="+id+" ";
-                
-                 stmt.executeUpdate(sql);
+                String sql= "update aja_productor prod "
+                            +  " SET nombre='"+txtNom.getText() +"' , "
+                            + " direccion='"+txtDireccion.getText()+"' ,  "
+                            + " envase_estandar='"+txtEnvase.getText()+"', "
+                            + " id_ciudad="+ " (select id from aja_ciudad where nombre='"+cbCiudad.getSelectedItem().toString()+"' ), "
+                            +"  id_pais_ciudad= "+ " (select id from aja_pais where nombre='"+cbPais.getSelectedItem().toString()+"' ), "
+                            + " pagina_web= '"+txtPaginaWeb.getText()+"'  ";
+                if (!cbRegion.getSelectedItem().equals(" "))
+                    sql += " , id_region="+ "(select id from aja_region where nombre='"+cbRegion.getSelectedItem().toString()+"' ),  "
+                            + " id_pais_region="+ " (select id from aja_pais where nombre='"+cbPais.getSelectedItem().toString()+"' )   ";
+                if (!cbCoop.getSelectedItem().equals(" "))
+                    sql+=", id_padre="+ " (select id from aja_prodcutror where nombre='"+cbCoop.getSelectedItem().toString()+"' )   ";
+                sql+= " WHERE id="+id+" ";
+                stmt.executeUpdate(sql);
                 controllerLogin.conexion.commit();
                JOptionPane.showMessageDialog(null,"Se modifico el registro con exito");
                 llenarProductor();
