@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista.adopcion_cerezas;
-
+ 
 
 import controlador.controllerLogin;
 import javax.swing.ImageIcon;

@@ -28,6 +28,9 @@ public class controllerAlimentos implements ActionListener {
         this.al.btnReceta.addActionListener(this);
         this.el.btnRegresar.addActionListener(this);
         this.in.btnRegresar.addActionListener(this);
+        this.in.btnInsertar.addActionListener(this);
+        this.in.btnModificar.addActionListener(this);
+        this.in.btnDelete.addActionListener(this);
         this.re.btnRegresar.addActionListener(this);
     }
     
@@ -67,7 +70,20 @@ public class controllerAlimentos implements ActionListener {
             in.setLocationRelativeTo(null);
             in.setVisible(true);
             al.setVisible(false);
+            in.llenarIngrediente();
         }
+        
+         if(ae.getSource()==in.btnInsertar){
+              in.inserts();
+          }
+          
+          if(ae.getSource()==in.btnDelete){
+              in.delete();
+          }
+          
+          if(ae.getSource()==in.btnModificar){
+              in.update();
+          }
         
         if(ae.getSource()==in.btnRegresar){
             iniciarAlimentos();
