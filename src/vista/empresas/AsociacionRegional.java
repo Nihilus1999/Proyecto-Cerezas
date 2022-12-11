@@ -244,12 +244,12 @@ public class AsociacionRegional extends javax.swing.JFrame {
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresar.setText("Regresar");
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 440, 120, 30));
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 510, 120, 30));
 
         btnInsertar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnInsertar.setForeground(new java.awt.Color(0, 0, 0));
         btnInsertar.setText("Insertar");
-        jPanel1.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 120, 30));
+        jPanel1.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 120, 30));
         jPanel1.add(txtNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 255, -1));
 
         jPanel1.add(cbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 255, 25));
@@ -279,15 +279,15 @@ public class AsociacionRegional extends javax.swing.JFrame {
                 cbAsociacionActionPerformed(evt);
             }
         });
-        jPanel3.add(cbAsociacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 255, 30));
+        jPanel3.add(cbAsociacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 420, 30));
 
         btnModificar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(0, 0, 0));
         btnModificar.setText("Modificar");
         btnModificar.setEnabled(false);
-        jPanel3.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 120, 30));
+        jPanel3.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, 120, 30));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 410, 90));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 580, 90));
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -296,7 +296,7 @@ public class AsociacionRegional extends javax.swing.JFrame {
         btnDelete.setForeground(new java.awt.Color(0, 0, 0));
         btnDelete.setText("Eliminar");
         btnDelete.setEnabled(false);
-        jPanel2.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 120, 30));
+        jPanel2.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 120, 30));
 
         cbAsociacionEli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cbAsociacionEli.addActionListener(new java.awt.event.ActionListener() {
@@ -304,7 +304,7 @@ public class AsociacionRegional extends javax.swing.JFrame {
                 cbAsociacionEliActionPerformed(evt);
             }
         });
-        jPanel2.add(cbAsociacionEli, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 255, 30));
+        jPanel2.add(cbAsociacionEli, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 410, 30));
 
         jLabel8.setBackground(new java.awt.Color(0, 0, 0));
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -312,7 +312,7 @@ public class AsociacionRegional extends javax.swing.JFrame {
         jLabel8.setText("Asociacion Regional");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 410, 90));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 570, 90));
 
         jNombreVar.setBackground(new java.awt.Color(0, 0, 0));
         jNombreVar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -348,7 +348,7 @@ public class AsociacionRegional extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
         );
 
         pack();
