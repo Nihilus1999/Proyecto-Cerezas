@@ -286,7 +286,7 @@ public class ProgramaApadrinamiento extends javax.swing.JFrame {
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresar.setText("Regresar");
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 620, 120, 30));
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 620, 120, 30));
 
         btnInsertar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnInsertar.setForeground(new java.awt.Color(0, 0, 0));
@@ -315,7 +315,7 @@ public class ProgramaApadrinamiento extends javax.swing.JFrame {
         btnModificar.setForeground(new java.awt.Color(0, 0, 0));
         btnModificar.setText("Modificar");
         btnModificar.setEnabled(false);
-        jPanel3.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, 120, 30));
+        jPanel3.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 120, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 630, 90));
 
@@ -326,7 +326,7 @@ public class ProgramaApadrinamiento extends javax.swing.JFrame {
         btnDelete.setForeground(new java.awt.Color(0, 0, 0));
         btnDelete.setText("Eliminar");
         btnDelete.setEnabled(false);
-        jPanel2.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 120, 30));
+        jPanel2.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 120, 30));
 
         cbProgramaEli.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         cbProgramaEli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
@@ -335,7 +335,7 @@ public class ProgramaApadrinamiento extends javax.swing.JFrame {
                 cbProgramaEliActionPerformed(evt);
             }
         });
-        jPanel2.add(cbProgramaEli, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 470, 25));
+        jPanel2.add(cbProgramaEli, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 460, 25));
 
         jLabel8.setBackground(new java.awt.Color(0, 0, 0));
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N

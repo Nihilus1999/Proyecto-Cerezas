@@ -36,6 +36,7 @@ public class controllerProduccion implements ActionListener{
         this.vc.btnInsertar.addActionListener(this);
         this.vc.btnRegresar.addActionListener(this);
         this.vc.btnModificar.addActionListener(this);
+        this.pp.btnIngresar.addActionListener(this);
         this.pp.btnRegresar.addActionListener(this);
         this.c.btnInsertar.addActionListener(this);
         this.c.btnEliminar.addActionListener(this);
@@ -124,7 +125,13 @@ public class controllerProduccion implements ActionListener{
             pp.setLocationRelativeTo(null);
             pp.setVisible(true);
             p.setVisible(false);
+            pp.llenarPais();
+            pp.llenarVar();
         }
+           
+            if(ae.getSource()==pp.btnIngresar){
+              pp.insert();
+          }
            
           if(ae.getSource()==pp.btnRegresar){
               iniciarProduccion();
