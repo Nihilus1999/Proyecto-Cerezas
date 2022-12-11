@@ -38,6 +38,9 @@ public class controllerEvaluaciones implements ActionListener{
         this.fo.btnModificar.addActionListener(this);
         this.fo.btnDelete.addActionListener(this);
         this.p.btnRegresar.addActionListener(this);
+        this.p.btnInsertar.addActionListener(this);
+        this.p.btnModificar.addActionListener(this);
+        this.p.btnDelete.addActionListener(this);
         this.re.btnRegresar.addActionListener(this);
         this.var.btnRegresar.addActionListener(this);
         this.var.btnInsertar.addActionListener(this);
@@ -95,6 +98,9 @@ public class controllerEvaluaciones implements ActionListener{
             p.setLocationRelativeTo(null);
             p.setVisible(true);
             ev.setVisible(false);
+            p.llenarPago();
+          
+            
         }
         
          if(ae.getSource()==p.btnRegresar){
@@ -102,6 +108,18 @@ public class controllerEvaluaciones implements ActionListener{
             ev.setVisible(true);
             p.setVisible(false);
         }
+         
+           if(ae.getSource()==p.btnInsertar){
+              p.inserts();
+          }
+          
+          if(ae.getSource()==p.btnDelete){
+              p.delete();
+          }
+          
+          if(ae.getSource()==p.btnModificar){
+              p.update();
+          }
         
          if(ae.getSource()==ev.btnResultado){
             re.setTitle("Resultado");
