@@ -161,7 +161,7 @@ public class Ingredientes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ADMINISTRACION DE VARIEDADES");
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 43, 55));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -175,7 +175,7 @@ public class Ingredientes extends javax.swing.JFrame {
         jPanel1.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 120, 30));
         jPanel1.add(txtNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 255, 25));
 
-        jPanel3.setBackground(new java.awt.Color(204, 0, 102));
+        jPanel3.setBackground(new java.awt.Color(191, 0, 51));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jVariedadPais1.setBackground(new java.awt.Color(0, 0, 0));
@@ -200,7 +200,7 @@ public class Ingredientes extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 410, 90));
 
-        jPanel2.setBackground(new java.awt.Color(204, 0, 102));
+        jPanel2.setBackground(new java.awt.Color(191, 0, 51));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnDelete.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
