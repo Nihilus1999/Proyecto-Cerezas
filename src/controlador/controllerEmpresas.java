@@ -134,6 +134,8 @@ public class controllerEmpresas implements ActionListener{
             pd.llenarProductor();
             pd.llenarCiudad();
             pd.llenarRegion();
+            pd.llenarAsoc();
+            pd.llenarCoop();
         }
         
          if(ae.getSource()==pd.btnInsertar){
