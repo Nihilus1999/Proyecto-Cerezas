@@ -20,6 +20,8 @@ public class controllerBeneficioSalud implements ActionListener{
     public controllerBeneficioSalud (BeneficiosSalud be) {
         this.be=be;
         this.be.btnRegresar.addActionListener(this);
+        this.be.btnModificar.addActionListener(this);
+        this.be.btnEditar.addActionListener(this);
     }
     
     public void iniciarBeneficios(){
@@ -35,6 +37,9 @@ public class controllerBeneficioSalud implements ActionListener{
             controllerPrincipal ctrl = new controllerPrincipal(mm);
             ctrl.iniciarMenu();
             be.setVisible(false);
+        }
+        if(ae.getSource()==be.btnModificar){
+            be.update();
         }
     }
 }

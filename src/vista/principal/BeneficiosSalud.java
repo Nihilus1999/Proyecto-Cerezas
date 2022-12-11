@@ -4,22 +4,69 @@
  */
 package vista.principal;
 
+import controlador.controllerLogin;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import static vista.produccion.VariedadCerezas.validarNombre;
 
 /**
  *
  * @author jose-
  */
 public class BeneficiosSalud extends javax.swing.JFrame {
-
+    String benefios;
     /**
      * Creates new form VariedadCerezas
      */
     public BeneficiosSalud() {
         initComponents();
+        llenarBeneficios();
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoApp.jpg")).getImage());
     }
 
+    
+    public void limpiar(){
+        jTextArea1.setText(" ");
+    }
+    
+    
+    public void llenarBeneficios(){
+        limpiar();
+        try {
+            Statement stmt = controllerLogin.conexion.createStatement();
+            ResultSet rs = stmt.executeQuery( "select descripcion from aja_beneficios" );
+            while ( rs.next() ) {
+                String registro = rs.getString(1);
+                jTextArea1.setText(registro);
+            }
+        } catch (SQLException e) {
+                e.printStackTrace();
+        }
+    }
+    
+    public void update(){
+         if(jTextArea1.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El campo no puede estar vacio");
+        } else{
+            try{
+                Statement stmt = controllerLogin.conexion.createStatement();
+                String sql = "update aja_beneficios " 
+                        + "set descripcion= '" 
+                        + jTextArea1.getText()+"' ";
+
+                ResultSet rs = stmt.executeQuery( "select descripcion from aja_beneficios" );
+                stmt.executeUpdate(sql);
+                controllerLogin.conexion.commit();
+               JOptionPane.showMessageDialog(null,"Se modifico el registro con exito");
+                llenarBeneficios();
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +101,9 @@ public class BeneficiosSalud extends javax.swing.JFrame {
         btnModificar.setContentAreaFilled(false);
         btnModificar.setFocusPainted(false);
         btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnModificarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnModificarMouseEntered(evt);
             }
@@ -79,6 +129,8 @@ public class BeneficiosSalud extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 130, 45));
+
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
         jTextArea1.setColumns(20);
@@ -201,6 +253,10 @@ public class BeneficiosSalud extends javax.swing.JFrame {
     private void btnEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseExited
         btnEditar.setContentAreaFilled(false);
     }//GEN-LAST:event_btnEditarMouseExited
+
+    private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarMouseClicked
 
     /**
      * @param args the command line arguments
