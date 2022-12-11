@@ -147,7 +147,6 @@ public class Login extends javax.swing.JFrame {
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         // TODO add your handling code here:
         int a= evt.getKeyCode();
-        System.out.print(a);
         if (a==10) btnLogin.doClick();
     }//GEN-LAST:event_txtPasswordKeyPressed
 

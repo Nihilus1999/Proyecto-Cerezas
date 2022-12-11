@@ -15,13 +15,8 @@ import java.sql.Statement;
 public class Productores extends javax.swing.JFrame {
     
     int id;
-    int id_pais;
-    int id_ciudad;
-    int id_region;
-    String part1;
-    String part2;
-    String part3;
-    String part4;
+    int id_pais, id_ciudad, id_region, id_asoc, id_coop;
+    String part1, part2, part3, part4, part5, part6, part7, part8, part9, part10, part11;
     ResultSet rs;
     
     public Productores() {
@@ -74,13 +69,12 @@ public class Productores extends javax.swing.JFrame {
     
     public void cortarCB( javax.swing.JComboBox combo ){
         String sb1  = combo.getSelectedItem().toString();
-        String[] parts = sb1.split("/");
+        String[] parts = sb1.split("/ ");
         part1 = parts[0]; 
         part2 = parts[1];
         part3 = parts[2];
-        part4 = parts[3];
     }
-    
+        
     public void llenarProductor(){
         cbProductor.removeAllItems();
         cbProductorEli.removeAllItems();
@@ -88,10 +82,9 @@ public class Productores extends javax.swing.JFrame {
         cbProductorEli.addItem(" ");
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
-            ResultSet rs = stmt.executeQuery( "select pd.nombre || ' / ' || pais.nombre  || ' / ' || region.nombre  || ' / ' || ciudad.nombre" +
-"                    as texto from aja_productor pd, aja_pais pais, aja_region region, aja_ciudad ciudad" +
-"                    where pd.id_pais_region = pais.id and pd.id_region = region.id and pd.id_ciudad=ciudad.id" +
-"                    order by texto asc" );
+            ResultSet rs = stmt.executeQuery( "Select prod.nombre ||'/ '|| ciu.nombre ||'/ '|| pais.nombre "
+                    + "from aja_productor prod, aja_ciudad ciu, aja_pais pais "
+                    + "where prod.id_ciudad= ciu.id and prod.id_pais_ciudad= ciu.id_pais and pais.id= ciu.id_pais");
             while ( rs.next() ) {
             String registro = rs.getString(1);
             cbProductor.addItem(registro);
@@ -119,7 +112,8 @@ public class Productores extends javax.swing.JFrame {
         }else{
             try {
            Statement stmt = controllerLogin.conexion.createStatement();
-           String sql = "INSERT INTO aja_variedad_de_cerezas (id_pais,nombre,descripcion,especie,precocidad) values ((select id from aja_pais where nombre='"
+           String sql = "INSERT INTO aja_variedad_de_cerezas (id_pais,nombre,descripcion,especie,precocidad) values "
+                   + "((select id from aja_pais where nombre='"
                    + cbPais.getSelectedItem().toString() + "'),'"
                    + txtEnvase.getText() +"', '"
                    + txtDireccion.getText() +"', '"
@@ -194,7 +188,7 @@ public class Productores extends javax.swing.JFrame {
         }else{
             try{
                 Statement stmt = controllerLogin.conexion.createStatement();
-                String sql = "update aja_variedad_de_cerezas vdc " 
+                String sql = "update aja_productor prod " 
                         + "set (nombre,especie,precocidad,descripcion,id_pais)= " 
                         + "('"+ txtEnvase.getText() +"','"+ cbRegion.getSelectedItem().toString() +"','"+ cbCiudad.getSelectedItem().toString() +"','"+ txtDireccion.getText() +"'," 
                         + "(select pais.id from aja_pais pais where pais.nombre='"+ cbPais.getSelectedItem().toString() +"') ) "
@@ -236,7 +230,6 @@ public class Productores extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnInsertar = new javax.swing.JButton();
         txtEnvase = new javax.swing.JTextField();
-        cbCiudad = new javax.swing.JComboBox<>();
         cbPais = new javax.swing.JComboBox<>();
         cbRegion = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -249,16 +242,21 @@ public class Productores extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         cbProductorEli = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jNombreVar = new javax.swing.JLabel();
-        jDescripcion = new javax.swing.JLabel();
-        jPrecocidad = new javax.swing.JLabel();
-        jEspecie = new javax.swing.JLabel();
+        jEnvEst = new javax.swing.JLabel();
+        cbCiudad = new javax.swing.JComboBox<>();
+        jWeb = new javax.swing.JLabel();
+        jCiudad = new javax.swing.JLabel();
+        jCoop = new javax.swing.JLabel();
         jPais = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtPaginaWeb = new javax.swing.JTextArea();
-        jDescripcion1 = new javax.swing.JLabel();
+        jDireccion = new javax.swing.JLabel();
         jNombreVar1 = new javax.swing.JLabel();
         txtNom = new javax.swing.JTextField();
+        cbCoop = new javax.swing.JComboBox<>();
+        jRegion = new javax.swing.JLabel();
+        jAsoc = new javax.swing.JLabel();
+        cbAsoc = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ADMINISTRACION DE VARIEDADES");
@@ -277,11 +275,9 @@ public class Productores extends javax.swing.JFrame {
         jPanel1.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 480, 120, 30));
         jPanel1.add(txtEnvase, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 255, -1));
 
-        jPanel1.add(cbCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 255, 25));
+        jPanel1.add(cbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 250, 25));
 
-        jPanel1.add(cbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 255, 25));
-
-        jPanel1.add(cbRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 255, 25));
+        jPanel1.add(cbRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 250, 25));
 
         txtDireccion.setColumns(20);
         txtDireccion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -291,7 +287,7 @@ public class Productores extends javax.swing.JFrame {
         txtDireccion.setBorder(null);
         jScrollPane1.setViewportView(txtDireccion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 290, 150));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 290, 80));
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -343,29 +339,36 @@ public class Productores extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 410, 90));
 
-        jNombreVar.setBackground(new java.awt.Color(0, 0, 0));
-        jNombreVar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jNombreVar.setForeground(new java.awt.Color(255, 255, 255));
-        jNombreVar.setText("Envase estandar:");
-        jPanel1.add(jNombreVar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, 24));
+        jEnvEst.setBackground(new java.awt.Color(0, 0, 0));
+        jEnvEst.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jEnvEst.setForeground(new java.awt.Color(255, 255, 255));
+        jEnvEst.setText("Envase estandar:");
+        jPanel1.add(jEnvEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, 24));
 
-        jDescripcion.setBackground(new java.awt.Color(0, 0, 0));
-        jDescripcion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jDescripcion.setForeground(new java.awt.Color(255, 255, 255));
-        jDescripcion.setText("Pagina web del productor:");
-        jPanel1.add(jDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, -1, 24));
+        cbCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCiudadActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 250, 25));
 
-        jPrecocidad.setBackground(new java.awt.Color(0, 0, 0));
-        jPrecocidad.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jPrecocidad.setForeground(new java.awt.Color(255, 255, 255));
-        jPrecocidad.setText("Ciudad:");
-        jPanel1.add(jPrecocidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, 24));
+        jWeb.setBackground(new java.awt.Color(0, 0, 0));
+        jWeb.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jWeb.setForeground(new java.awt.Color(255, 255, 255));
+        jWeb.setText("Pagina web del productor:");
+        jPanel1.add(jWeb, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, -1, 24));
 
-        jEspecie.setBackground(new java.awt.Color(0, 0, 0));
-        jEspecie.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jEspecie.setForeground(new java.awt.Color(255, 255, 255));
-        jEspecie.setText("Region:");
-        jPanel1.add(jEspecie, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, 24));
+        jCiudad.setBackground(new java.awt.Color(0, 0, 0));
+        jCiudad.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jCiudad.setForeground(new java.awt.Color(255, 255, 255));
+        jCiudad.setText("Ciudad:");
+        jPanel1.add(jCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, 24));
+
+        jCoop.setBackground(new java.awt.Color(0, 0, 0));
+        jCoop.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jCoop.setForeground(new java.awt.Color(255, 255, 255));
+        jCoop.setText("Cooperativa que pertenece:");
+        jPanel1.add(jCoop, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, 24));
 
         jPais.setBackground(new java.awt.Color(0, 0, 0));
         jPais.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -381,13 +384,13 @@ public class Productores extends javax.swing.JFrame {
         txtPaginaWeb.setBorder(null);
         jScrollPane2.setViewportView(txtPaginaWeb);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, 290, 80));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, 290, 20));
 
-        jDescripcion1.setBackground(new java.awt.Color(0, 0, 0));
-        jDescripcion1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jDescripcion1.setForeground(new java.awt.Color(255, 255, 255));
-        jDescripcion1.setText("Direccion del productor:");
-        jPanel1.add(jDescripcion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, -1, 24));
+        jDireccion.setBackground(new java.awt.Color(0, 0, 0));
+        jDireccion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jDireccion.setForeground(new java.awt.Color(255, 255, 255));
+        jDireccion.setText("Direccion del productor:");
+        jPanel1.add(jDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, -1, 24));
 
         jNombreVar1.setBackground(new java.awt.Color(0, 0, 0));
         jNombreVar1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -395,6 +398,22 @@ public class Productores extends javax.swing.JFrame {
         jNombreVar1.setText("Nombre del productor:");
         jPanel1.add(jNombreVar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, 24));
         jPanel1.add(txtNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 255, -1));
+
+        jPanel1.add(cbCoop, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 290, 25));
+
+        jRegion.setBackground(new java.awt.Color(0, 0, 0));
+        jRegion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jRegion.setForeground(new java.awt.Color(255, 255, 255));
+        jRegion.setText("Region:");
+        jPanel1.add(jRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, 24));
+
+        jAsoc.setBackground(new java.awt.Color(0, 0, 0));
+        jAsoc.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jAsoc.setForeground(new java.awt.Color(255, 255, 255));
+        jAsoc.setText("Asociacion que pertenece:");
+        jPanel1.add(jAsoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, -1, 24));
+
+        jPanel1.add(cbAsoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 290, 25));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -420,35 +439,56 @@ public class Productores extends javax.swing.JFrame {
                 try {
                     Statement stmt = controllerLogin.conexion.createStatement();
                     
-                    ResultSet rs = stmt.executeQuery( "select productor.id, ciudad.id, region.id, pais.id, productor.nombre, productor.direccion, productor.envase_estandar, productor.pagina_web, "
-                            + "ciudad.nombre, region.nombre, pais.nombre from aja_productor productor, aja_ciudad ciudad, aja_region region, aja_pais pais "
-                            + "where pais.id= region.id_pais or region is null"
-                            + "and  pais.id=ciudad.id_pais and productor.id_pais_region=region.id_pais and productor.id_pais_ciudad= ciudad.id_pais and region.id=productor.id_region and productor.id_ciudad= ciudad.id");
-                    
+                    ResultSet rs = stmt.executeQuery( "select productor.id, ciudad.id, pais.id, productor.nombre, productor.direccion, productor.envase_estandar, productor.pagina_web, "
+                            + "ciudad.nombre, pais.nombre "
+                            + "from aja_productor productor, aja_ciudad ciudad, aja_pais pais "
+                            + "where pais.id=ciudad.id_pais and productor.id_pais_ciudad= ciudad.id_pais  and productor.id_ciudad= ciudad.id");
 
-                    
-                        while( rs.next() ){
-                            
-                             id = rs.getInt(1);
-                            String nombrepd = rs.getString(2);
-                            String direccion = rs.getString(3);
-                            String envase = rs.getString(4);
-                            String pagina = rs.getString(5);
-                            String pais = rs.getString(6);
-                            String region = rs.getString(7);
-                            String ciudad = rs.getString(8);
-                            
-                            System.out.println(nombrepd);
-                            
-                            txtNom.setText(nombrepd);
-                            cbCiudad.setSelectedItem(ciudad);
-                            cbRegion.setSelectedItem(region);
-                            cbPais.setSelectedItem(pais);
-                            txtEnvase.setText(envase);
-                            txtDireccion.setText(direccion);
-                            txtPaginaWeb.setText(pagina);
-                            
-                        }
+                    while( rs.next() ){
+
+                         id = rs.getInt(1);
+                         id_ciudad= rs.getInt(2);
+                         id_pais= rs.getInt(3);
+                        String nombrepd = rs.getString(4);
+                        String direccion = rs.getString(5);
+                        String envase = rs.getString(6);
+                        String pagina = rs.getString(7);
+                        String pais = rs.getString(9);
+                        String ciudad = rs.getString(8);
+                        txtNom.setText(nombrepd);
+                        cbCiudad.setSelectedItem(ciudad);
+                        cbPais.setSelectedItem(pais);
+                        txtEnvase.setText(envase);
+                        txtDireccion.setText(direccion);
+                        txtPaginaWeb.setText(pagina);
+                    }
+                    // luego de llenar los cuadros valido si es que tiene region 
+                    ResultSet rs2 = stmt.executeQuery( "select  reg.id, reg.nombre, asoc.id, asoc.nombre "
+                            + " from aja_productor productor, aja_ciudad ciudad, aja_pais pais, aja_region reg, "
+                            + " aja_asociacion_regional asoc, aja_representacion rep"
+                            + " where pais.id=ciudad.id_pais and productor.id_pais_ciudad= ciudad.id_pais  and productor.id_ciudad= ciudad.id "
+                            + " and reg.id_pais=pais.id and productor.id_pais_region= reg.id_pais  and productor.id_region= reg.id  "
+                            + " and asoc.id_region= reg.id and asoc.id_pais=reg.id_pais and productor.id=rep.id_productor and asoc.id=rep.id_asociacion "
+                            + " and productor.id="+id);
+                    // si no tiene region rs.next no tendra valor y este paso se saltara 
+                    while( rs2.next() ){
+                        id_region= rs2.getInt(1);
+                        id_asoc= rs2.getInt(3);
+                        String reg= rs2.getString(2), asoc= rs2.getString(4);
+                        cbRegion.setSelectedItem(reg);
+                        cbAsoc.setSelectedItem(asoc);
+                    }
+                    // cooperativa 
+                    ResultSet rs3 = stmt.executeQuery( "select  coop.id, coop.nombre "
+                            + " from aja_productor prod, aja_productor coop"
+                            + " where prod.id_padre= coop.id "
+                            + " and prod.id="+id);
+                    // si no tiene region rs.next no tendra valor y este paso se saltara 
+                    while( rs3.next() ){
+                        id_coop= rs3.getInt(1);
+                        String coop= rs3.getString(2);
+                        cbRegion.setSelectedItem(coop);
+                    }
                 } catch (SQLException e) {
                         e.printStackTrace();
                 }
@@ -493,6 +533,10 @@ public class Productores extends javax.swing.JFrame {
         
     }//GEN-LAST:event_cbProductorEliActionPerformed
 
+    private void cbCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCiudadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCiudadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -502,25 +546,29 @@ public class Productores extends javax.swing.JFrame {
     public javax.swing.JButton btnInsertar;
     public javax.swing.JButton btnModificar;
     public javax.swing.JButton btnRegresar;
+    public javax.swing.JComboBox<String> cbAsoc;
     public javax.swing.JComboBox<String> cbCiudad;
+    public javax.swing.JComboBox<String> cbCoop;
     public javax.swing.JComboBox<String> cbPais;
     private javax.swing.JComboBox<String> cbProductor;
     private javax.swing.JComboBox<String> cbProductorEli;
     public javax.swing.JComboBox<String> cbRegion;
-    private javax.swing.JLabel jDescripcion;
-    private javax.swing.JLabel jDescripcion1;
-    private javax.swing.JLabel jEspecie;
+    private javax.swing.JLabel jAsoc;
+    private javax.swing.JLabel jCiudad;
+    private javax.swing.JLabel jCoop;
+    private javax.swing.JLabel jDireccion;
+    private javax.swing.JLabel jEnvEst;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jNombreVar;
     private javax.swing.JLabel jNombreVar1;
     private javax.swing.JLabel jPais;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel jPrecocidad;
+    private javax.swing.JLabel jRegion;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel jVariedadPais1;
+    private javax.swing.JLabel jWeb;
     private javax.swing.JTextArea txtDireccion;
     public javax.swing.JTextField txtEnvase;
     public javax.swing.JTextField txtNom;
