@@ -161,7 +161,9 @@ public class Cultivo extends javax.swing.JFrame {
         cbProductorVarEli.addItem(" ");
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
-            ResultSet rs = stmt.executeQuery( "select 'Cultivo #' || cul.id || ' / ' ||pro.nombre || ' / ' ||  var.nombre || ' / ' || pais.nombre as texto from aja_cultivo cul, aja_productor pro, aja_variedad_de_cerezas var, aja_pais pais where (cul.id_productor = pro.id) and (cul.id_variedad = var.id) and (var.id_pais = pais.id) order by pro.nombre" );
+            ResultSet rs = stmt.executeQuery( "select 'Cultivo #' || cul.id || ' / ' ||pro.nombre || ' / ' ||  var.nombre || ' / ' || pais.nombre as texto "
+                    + "from aja_cultivo cul, aja_productor pro, aja_variedad_de_cerezas var, aja_pais pais where (cul.id_productor = pro.id) and (cul.id_variedad = var.id) and (var.id_pais = pais.id) "
+                    + "order by cul.id asc" );
             while(rs.next()){
                 String registro = rs.getString(1);
                 cbProductorVar.addItem(registro);
