@@ -148,10 +148,13 @@ public class Productores extends javax.swing.JFrame {
     }
     
     public void inserts(){
+            
             if(txtEnvase.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "El campo no puede estar vacio");
             } else if ( validarNombre(txtEnvase.getText()) ==false){
                 JOptionPane.showMessageDialog(null, "El campo nombre no puede tener numeros");
+            }else if (part1.trim().equals(cbCoop.getSelectedItem().toString())){
+                JOptionPane.showMessageDialog(null, "El productor no puede ser el mismo que la cooperativa");
             }else{
                 try {
                     Statement stmt = controllerLogin.conexion.createStatement();
@@ -226,33 +229,26 @@ public class Productores extends javax.swing.JFrame {
     }
     
     public void update(){
+        cortarCB(cbProductor);
          if(txtEnvase.getText().equals("")){
             JOptionPane.showMessageDialog(null, "El campo no puede estar vacio");
         } else if ( validarNombre(txtEnvase.getText()) ==false){
             JOptionPane.showMessageDialog(null, "El campo nombre no puede tener numeros");
+        }else if (part1.trim().equals(cbCoop.getSelectedItem().toString())){
+                JOptionPane.showMessageDialog(null, "El productor no puede ser el mismo que la cooperativa");
         }else{
             try{
                 Statement stmt = controllerLogin.conexion.createStatement();
                 // sobreescribe datos pero sirve 
                 String sql = "update aja_productor prod "
-                        +  " SET nombre='"+txtNom.getText()+"' , direccion='"+txtDireccion.getText()+"' , envase_estandar='"+txtEnvase.getText()+"', id_ciudad="+id_ciudad+" , id_pais_ciudad= "+id_pais+" , id_region="+id_region+", id_pais_region="+id_pais+", id_padre="+id_coop+", pagina_web= '"+txtPaginaWeb+"'      "
+                        +  " SET nombre='"+txtNom.getText()+"' , direccion='"+txtDireccion.getText()+"' , envase_estandar='"+txtEnvase.getText()+"', id_ciudad="+id_ciudad+" , id_pais_ciudad= "+id_pais+" , id_region="+id_region+", id_pais_region="+id_pais+", id_padre="+id_coop+", pagina_web= '"+txtPaginaWeb+"'"
                         + " WHERE id="+id+" ";
                 
-                       int flag=0;
-                       while ( rs.next() ) {
-                           if( rs.getString(1).equals(txtEnvase.getText()) && rs.getString(2).equals(cbPais.getSelectedItem().toString())){
-                               JOptionPane.showMessageDialog(null, "La variedad que intento registrar ya existe");
-                               flag=1;
-                               break;
-                           }
-                        }
-                       if(flag==0){
-                               stmt.executeUpdate(sql);
-                               controllerLogin.conexion.commit();
-                              JOptionPane.showMessageDialog(null,"Se modifico el registro con exito");
-                               llenarProductor();
-                               limpiar();
-                           }
+                 stmt.executeUpdate(sql);
+                controllerLogin.conexion.commit();
+               JOptionPane.showMessageDialog(null,"Se modifico el registro con exito");
+                llenarProductor();
+                limpiar();
 
             }catch (SQLException e) {
                 e.printStackTrace();
@@ -594,6 +590,7 @@ public class Productores extends javax.swing.JFrame {
     private void cbAsocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAsocActionPerformed
         // TODO add your handling code here:
         if (!cbAsoc.getSelectedItem().equals("")) {
+            
             try {
                 Statement stmt = controllerLogin.conexion.createStatement();
                 ResultSet rs = stmt.executeQuery( "select reg.id , reg.nombre"
