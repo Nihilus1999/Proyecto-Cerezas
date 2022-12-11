@@ -41,7 +41,9 @@ public class controllerProduccion implements ActionListener{
         this.c.btnEliminar.addActionListener(this);
         this.c.btnModificar.addActionListener(this);
         this.c.btnRegresar.addActionListener(this);
+        this.pa.btnInsertar.addActionListener(this);
         this.pa.btnRegresar.addActionListener(this);
+        this.pa.btnEliminar.addActionListener(this);
     }
     
     public void iniciarProduccion(){
@@ -136,7 +138,17 @@ public class controllerProduccion implements ActionListener{
             pa.setLocationRelativeTo(null);
             pa.setVisible(true);
             p.setVisible(false);
+            pa.llenarCbCultivoProduA();
+            pa.llenarCbCultivo();
         }
+          
+          if(ae.getSource()==pa.btnInsertar){
+              pa.insert();
+          }
+          
+          if(ae.getSource()==pa.btnEliminar){
+              pa.delete();
+          }
           
           if(ae.getSource()==pa.btnRegresar){
               iniciarProduccion();
