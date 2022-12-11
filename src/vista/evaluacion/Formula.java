@@ -37,7 +37,7 @@ public class Formula extends javax.swing.JFrame {
         String[] parts = sb1.split("/");
         part1 = parts[0].replaceAll("Cliente: ", "");//Nombre del cliente
         part2 = parts[1];//nombre del pais
-        part3 = parts[2].replaceAll("Formula: ", "");//nombre de la varieble
+        part3 = parts[2].replaceAll("Variable: ", "");//nombre de la varieble
              
 }
     
@@ -80,7 +80,7 @@ public class Formula extends javax.swing.JFrame {
         cbFormulaEli.addItem(" ");
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT 'Cliente: ' || ci.denominacion_comercial || ' / ' || pais.nombre  || ' / ' ||  'Formula: ' || va.nombre as cbFormula " +
+            ResultSet rs = stmt.executeQuery( "SELECT 'Cliente: ' || ci.denominacion_comercial || ' / ' || pais.nombre  || ' / ' ||  'Variable: ' || va.nombre as cbFormula " +
             "from aja_formula fo ,aja_variable va, aja_cliente ci, aja_pais pais " +
             "where fo.id_cliente = ci.id and fo.id_variable = va.id and ci.id_pais_ciudad=pais.id" );
             while ( rs.next() ) {
@@ -121,7 +121,7 @@ public class Formula extends javax.swing.JFrame {
                    stmt.executeUpdate(sql);
                     controllerLogin.conexion.commit();
                     JOptionPane.showMessageDialog(null,"Se ha registrado la formula exitosamente");
-                    llenarVariable();
+                    llenarFormula();
                     limpiar();
                   
                    
@@ -171,7 +171,7 @@ public class Formula extends javax.swing.JFrame {
                     stmt.executeUpdate(sql);
                     controllerLogin.conexion.commit();
                    JOptionPane.showMessageDialog(null,"Se modifico la formula con exito");
-                    llenarVariable();
+                    llenarFormula();
                     limpiar();
 
             }catch (SQLException e) {
