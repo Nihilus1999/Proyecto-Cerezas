@@ -68,6 +68,7 @@ public class Region extends javax.swing.JFrame {
     
     public void limpiar(){
         txtNom.setText(null);
+        txtDescripcion.setText(null);
         cbPais.setSelectedIndex(0);
         cbRegion.setSelectedIndex(0);
         cbRegionEli.setSelectedIndex(0);

@@ -268,13 +268,13 @@ public class Ingredientes extends javax.swing.JFrame {
                 btnInsertar.setEnabled(false);
                 try {
                     Statement stmt = controllerLogin.conexion.createStatement();
-                    ResultSet rs = stmt.executeQuery( "select  id, nombre, descripcion "
-                            + "from aja_ingrediente ");
+                   ResultSet rs = stmt.executeQuery( "select  id, nombre, descripcion "
+                            + "from aja_ingrediente where nombre ='" + cbIngrediente.getSelectedItem().toString() + "' ");
                         while( rs.next() ){
                             id = rs.getInt(1);
-                            String nombreCi = rs.getString(2);
+                            String nombreIn = rs.getString(2);
                             String descripcion = rs.getString(3);
-                            txtNom.setText(nombreCi);
+                            txtNom.setText(nombreIn);
                             txtDescripcion.setText(descripcion);
                         }
                 } catch (SQLException e) {
@@ -300,8 +300,8 @@ public class Ingredientes extends javax.swing.JFrame {
                 try {
                     Statement stmt = controllerLogin.conexion.createStatement();
                     
-                  ResultSet rs = stmt.executeQuery( "select  id, nombre, descripcion "
-                            + "from aja_ingrediente ");
+                   ResultSet rs = stmt.executeQuery( "select  id, nombre, descripcion "
+                            + "from aja_ingrediente where nombre ='" + cbIngrediente.getSelectedItem().toString() + "' ");
                   
                         while( rs.next() ){
                             id = rs.getInt(1);
