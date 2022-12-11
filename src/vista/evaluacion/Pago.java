@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Pago extends javax.swing.JFrame {
     
@@ -22,9 +23,11 @@ public class Pago extends javax.swing.JFrame {
     String part5;
     String part6;
     
+    Date fecha;
+    
     ResultSet rs;
     
-    SimpleDateFormat format = new SimpleDateFormat("YYYY-MMM-dd");
+    SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
     
     public Pago() {
         initComponents();
@@ -76,6 +79,8 @@ public class Pago extends javax.swing.JFrame {
     
     public void inserts(){
         
+        
+        
        if(dcFecha.getDate()==null || spMonto.getValue()==null){
             JOptionPane.showMessageDialog(null, "No hay ninguna fecha registrada");
         } else{
@@ -88,12 +93,18 @@ public class Pago extends javax.swing.JFrame {
                   + "(select id from aja_contrato where id="+ part2.trim() + "),'"
                   + format.format(dcFecha.getDate()) +"' ,"
                   +  spMonto.getValue() +")";
-                   
-                   stmt.executeUpdate(sql);
+           
+           if(format.format(dcFecha.getDate()).equals(format.format(fecha))){
+               JOptionPane.showMessageDialog(null, " la fecha no puede ser la misma");
+           }else{
+               
+                    stmt.executeUpdate(sql);
                     controllerLogin.conexion.commit();
                     JOptionPane.showMessageDialog(null,"Se ha registrado el pago exitosamente");
                     llenarPago();
                     limpiar();
+           }
+                  
                   
                      } catch (SQLException e) {
                           JOptionPane.showMessageDialog(null, " El productor y cliente no pertenecen al contrato indicado");
@@ -137,11 +148,16 @@ public class Pago extends javax.swing.JFrame {
                   + format.format(dcFecha.getDate()) +"' ,"
                   +  spMonto.getValue() +")";
                 
+                     if(format.format(dcFecha.getDate()).equals(format.format(fecha))){
+               JOptionPane.showMessageDialog(null, " la fecha no puede ser la misma");
+           }else{
+               
                     stmt.executeUpdate(sql);
                     controllerLogin.conexion.commit();
-                   JOptionPane.showMessageDialog(null,"Se modifico la formula con exito");
+                    JOptionPane.showMessageDialog(null,"Se ha registrado el pago exitosamente");
                     llenarPago();
                     limpiar();
+           }
 
             }catch (SQLException e) {
                 e.printStackTrace();
@@ -301,6 +317,7 @@ public class Pago extends javax.swing.JFrame {
                         while( rs.next() ){
                             
                             id = rs.getInt(1);
+                            fecha = rs.getDate(2);
                             dcFecha.setDate(rs.getDate(2));
                             spMonto.setValue(rs.getInt(3));
                             
