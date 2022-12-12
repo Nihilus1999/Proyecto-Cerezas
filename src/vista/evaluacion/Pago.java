@@ -141,25 +141,17 @@ public class Pago extends javax.swing.JFrame {
         } else{
             try{
                 Statement stmt = controllerLogin.conexion.createStatement();
-              String sql = "update aja_pago set (id_cliente, id_productor, id_contrato, fecha, monto) = ("
-                  + "(select id from aja_cliente where denominacion_comercial='"+ part4.trim() + "'),"
-                  + "(select id from aja_productor where nombre='"+ part3.trim() + "'),"
-                  + "(select id from aja_contrato where id="+ part2.trim() + "),'"
+              String sql = "update aja_pago set (fecha, monto) = ('"
                   + format.format(dcFecha.getDate()) +"' ,"
                   +  spMonto.getValue() +")"
                       + " where id ="+ part1.trim() + " ";
                   
                 
-                     if(format.format(dcFecha.getDate()).equals(format.format(fecha))){
-               JOptionPane.showMessageDialog(null, " la fecha no puede ser la misma");
-           }else{
-               
-                    stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql);
                     controllerLogin.conexion.commit();
                     JOptionPane.showMessageDialog(null,"Se ha registrado el pago exitosamente");
                     llenarPago();
                     limpiar();
-           }
 
             }catch (SQLException e) {
                 e.printStackTrace();

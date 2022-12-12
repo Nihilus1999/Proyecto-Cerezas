@@ -37,6 +37,9 @@ public class controllerAcuerdos implements ActionListener {
         this.ac.btnRenovacion.addActionListener(this);
         this.ca.btnRegresar.addActionListener(this);
         this.co.btnRegresar.addActionListener(this);
+        this.co.btnInsertar.addActionListener(this);
+        this.co.btnModificar.addActionListener(this);
+        this.co.btnDelete.addActionListener(this);
         this.ct.btnRegresar.addActionListener(this);
         this.mp.btnRegresar.addActionListener(this);
         this.re.btnRegresar.addActionListener(this);
@@ -81,7 +84,20 @@ public class controllerAcuerdos implements ActionListener {
             co.setLocationRelativeTo(null);
             co.setVisible(true);
             ac.setVisible(false);
+            co.llenarConvenio();
         }
+        
+         if(ae.getSource()==co.btnInsertar){
+              co.inserts();
+          }
+          
+          if(ae.getSource()==co.btnDelete){
+              co.delete();
+          }
+          
+          if(ae.getSource()==co.btnModificar){
+              co.update();
+          }
         
         if(ae.getSource()==co.btnRegresar){
              iniciarAcuerdos();

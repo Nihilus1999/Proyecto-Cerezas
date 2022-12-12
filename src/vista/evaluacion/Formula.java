@@ -162,9 +162,7 @@ public class Formula extends javax.swing.JFrame {
         } else{
             try{
                 Statement stmt = controllerLogin.conexion.createStatement();
-               String sql = "update aja_formula set (id_cliente, id_variable, porcentaje_importancia, tipo) = ("
-                  + "(select id from aja_cliente where denominacion_comercial='"+ cbCliente.getSelectedItem().toString() + "'),"
-                  + "(select id from aja_variable where nombre='"+ cbVariable.getSelectedItem().toString() + "'),"
+               String sql = "update aja_formula set (porcentaje_importancia, tipo) = ("
                   +  spPorcentaje.getValue() +", '"
                   +  cbTipo.getSelectedItem().toString() +"')"
                   + " where id  =" + id;

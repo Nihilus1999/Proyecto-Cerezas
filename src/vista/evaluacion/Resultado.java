@@ -169,10 +169,7 @@ public class Resultado extends javax.swing.JFrame {
         } else{
             try{
                 Statement stmt = controllerLogin.conexion.createStatement();
-               String sql = "update aja_resultado set (id_cliente, id_productor,yyyy, desicion, resultado_valor, resultado_porcentaje, fecha, observacion) = ("
-                  + "(select id from aja_cliente where denominacion_comercial='"+ cbCliente.getSelectedItem().toString() + "'),"
-                  + "(select id from aja_productor where nombre='"+ cbProductor.getSelectedItem().toString() + "'),'"
-                  +  format.format(dcYear.getDate()) +"', '"
+               String sql = "update aja_resultado set (desicion, resultado_valor, resultado_porcentaje, fecha, observacion) = ('"
                   +  cbDecision.getSelectedItem().toString() +"', "
                    +  spValor.getValue()+", "
                    +  spPorcentaje.getValue()+", '"
@@ -191,6 +188,9 @@ public class Resultado extends javax.swing.JFrame {
                     stmt.executeUpdate(sql);
                     controllerLogin.conexion.commit();
                     JOptionPane.showMessageDialog(null,"Se ha registrado el resultado exitosamente");
+                    cbProductor.setEnabled(true);
+                    cbCliente.setEnabled(true);
+                    dcYear.setEnabled(true);
                     llenarResultado();
                     limpiar();
            }
@@ -399,6 +399,10 @@ public class Resultado extends javax.swing.JFrame {
                 cortarCBP(cbResultado);
                 btnModificar.setEnabled(true);
                 btnInsertar.setEnabled(false);
+                cbProductor.setEnabled(false);
+                cbCliente.setEnabled(false);
+                dcYear.setEnabled(false);
+                
                 try {
                     Statement stmt = controllerLogin.conexion.createStatement();
                     
