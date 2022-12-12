@@ -440,7 +440,7 @@ public class Productores extends javax.swing.JFrame {
         jNombreVar1.setForeground(new java.awt.Color(255, 255, 255));
         jNombreVar1.setText("Nombre del productor:");
         jPanel1.add(jNombreVar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, 24));
-        jPanel1.add(txtNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 255, -1));
+        jPanel1.add(txtNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 250, 30));
 
         jPanel1.add(cbCoop, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 290, 25));
 

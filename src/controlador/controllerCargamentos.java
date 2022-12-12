@@ -24,6 +24,9 @@ public class controllerCargamentos implements ActionListener{
         this.ca.btnVariedadExpor.addActionListener(this);
         this.er.btnRegresar.addActionListener(this);
         this.ve.btnRegresar.addActionListener(this);
+        this.ve.btnInsert.addActionListener(this);
+        this.ve.btnDelete.addActionListener(this);
+        this.ve.btnModificar.addActionListener(this);
     }
     
     public void iniciarCargamentos(){
@@ -54,6 +57,23 @@ public class controllerCargamentos implements ActionListener{
             ca.setVisible(true);
             er.setVisible(false);
         }
+        if(ae.getSource()==er.btnInsert){
+            er.insert();
+        }
+
+        if(ae.getSource()==er.btnDelete){
+            er.delete();
+        }
+
+        if(ae.getSource()==er.btnModificar){
+            er.update();
+        }
+        
+        if(ae.getSource()==er.btnRegresar){
+            iniciarCargamentos();
+            ca.setVisible(true);
+            er.setVisible(false);
+        }
         
         if(ae.getSource()==ca.btnVariedadExpor){
             ve.setTitle("Variedad Exportada");
@@ -61,6 +81,19 @@ public class controllerCargamentos implements ActionListener{
             ve.setLocationRelativeTo(null);
             ve.setVisible(true);
             ca.setVisible(false);
+            ve.llenarVarExp();
+        }
+
+        if(ae.getSource()==ve.btnInsert){
+            ve.insert();
+        }
+
+        if(ae.getSource()==ve.btnDelete){
+            ve.delete();
+        }
+
+        if(ae.getSource()==ve.btnModificar){
+            ve.update();
         }
         
         if(ae.getSource()==ve.btnRegresar){
@@ -68,10 +101,5 @@ public class controllerCargamentos implements ActionListener{
             ca.setVisible(true);
             ve.setVisible(false);
         }
-        
-        
     }
-    
-    
-    
 }

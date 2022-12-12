@@ -143,9 +143,7 @@ public class Pago extends javax.swing.JFrame {
                 Statement stmt = controllerLogin.conexion.createStatement();
               String sql = "update aja_pago set (fecha, monto) = ('"
                   + format.format(dcFecha.getDate()) +"' ,"
-                  +  spMonto.getValue() +")"
-                      + " where id ="+ part1.trim() + " ";
-                  
+                  +  spMonto.getValue() +")";
                 
             stmt.executeUpdate(sql);
                     controllerLogin.conexion.commit();
