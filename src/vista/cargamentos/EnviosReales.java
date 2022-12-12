@@ -4,6 +4,8 @@
  */
 package vista.cargamentos;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author jose-
@@ -15,8 +17,24 @@ public class EnviosReales extends javax.swing.JFrame {
      */
     public EnviosReales() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoApp.jpg")).getImage());
     }
 
+    public void llenarEnvReal(){
+    
+    }
+    
+    public void insert(){
+        
+    }
+    
+    public void delete(){
+        
+    }
+    
+    public void update(){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,47 +44,277 @@ public class EnviosReales extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        txtPeso = new javax.swing.JTextField();
+        dateFechaSalida = new com.toedter.calendar.JDateChooser();
+        btnInsert = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        cbEnvReal = new javax.swing.JComboBox<>();
+        btnModificar = new javax.swing.JButton();
+        txtVarExp = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        cbEnvRealEli = new javax.swing.JComboBox<>();
+        btnDelete = new javax.swing.JButton();
+        txtVarExpEli = new javax.swing.JLabel();
+        txtProd1 = new javax.swing.JLabel();
+        txtProd2 = new javax.swing.JLabel();
+        txtProd3 = new javax.swing.JLabel();
+        dateFechaRec = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnRegresar.setText("Regresar");
+        jPanel1.setBackground(new java.awt.Color(255, 204, 51));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel1.setText("Envios Reales");
+        btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
+        txtPeso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesoActionPerformed(evt);
+            }
+        });
+
+        btnInsert.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnInsert.setForeground(new java.awt.Color(0, 0, 0));
+        btnInsert.setText("Insertar");
+        btnInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(227, 141, 4));
+        jPanel2.setToolTipText("");
+
+        cbEnvReal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEnvRealActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnModificar.setForeground(new java.awt.Color(0, 0, 0));
+        btnModificar.setText("Modificar");
+
+        txtVarExp.setBackground(new java.awt.Color(0, 0, 0));
+        txtVarExp.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtVarExp.setForeground(new java.awt.Color(255, 255, 255));
+        txtVarExp.setText("Envios reales de:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtVarExp)
+                        .addGap(0, 153, Short.MAX_VALUE))
+                    .addComponent(cbEnvReal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(txtVarExp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbEnvReal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(227, 141, 4));
+
+        cbEnvRealEli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEnvRealEliActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
+        btnDelete.setText("Eliminar");
+
+        txtVarExpEli.setBackground(new java.awt.Color(0, 0, 0));
+        txtVarExpEli.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtVarExpEli.setForeground(new java.awt.Color(255, 255, 255));
+        txtVarExpEli.setText("Envios reales de:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtVarExpEli)
+                        .addGap(0, 83, Short.MAX_VALUE))
+                    .addComponent(cbEnvRealEli, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(txtVarExpEli)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbEnvRealEli, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
+        );
+
+        txtProd1.setBackground(new java.awt.Color(0, 0, 0));
+        txtProd1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtProd1.setForeground(new java.awt.Color(255, 255, 255));
+        txtProd1.setText("Fecha salida:");
+
+        txtProd2.setBackground(new java.awt.Color(0, 0, 0));
+        txtProd2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtProd2.setForeground(new java.awt.Color(255, 255, 255));
+        txtProd2.setText("Peso (kg):");
+
+        txtProd3.setBackground(new java.awt.Color(0, 0, 0));
+        txtProd3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtProd3.setForeground(new java.awt.Color(255, 255, 255));
+        txtProd3.setText("Fecha recoleccion:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(dateFechaRec, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtProd1)
+                            .addComponent(dateFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtProd2)
+                            .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtProd3))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRegresar)
+                .addGap(0, 34, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnRegresar)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtProd1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtProd2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtProd3)
+                        .addGap(3, 3, 3)
+                        .addComponent(dateFechaRec, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(167, 167, 167)
-                .addComponent(jLabel1)
-                .addContainerGap(163, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesoActionPerformed
+
+    private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInsertActionPerformed
+
+    private void cbEnvRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEnvRealActionPerformed
+       
+    }//GEN-LAST:event_cbEnvRealActionPerformed
+
+    private void cbEnvRealEliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEnvRealEliActionPerformed
+       
+    }//GEN-LAST:event_cbEnvRealEliActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnDelete;
+    public javax.swing.JButton btnInsert;
+    public javax.swing.JButton btnModificar;
     public javax.swing.JButton btnRegresar;
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JComboBox<String> cbEnvReal;
+    public javax.swing.JComboBox<String> cbEnvRealEli;
+    public com.toedter.calendar.JDateChooser dateFechaRec;
+    public com.toedter.calendar.JDateChooser dateFechaSalida;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    public javax.swing.JTextField txtPeso;
+    private javax.swing.JLabel txtProd1;
+    private javax.swing.JLabel txtProd2;
+    private javax.swing.JLabel txtProd3;
+    private javax.swing.JLabel txtVarExp;
+    private javax.swing.JLabel txtVarExpEli;
     // End of variables declaration//GEN-END:variables
 }

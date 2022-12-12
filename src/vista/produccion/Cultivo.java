@@ -31,7 +31,7 @@ public class Cultivo extends javax.swing.JFrame {
     String part5;
     String part6;
     
-    SimpleDateFormat format = new SimpleDateFormat("YYYY-MMM-dd");
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     
     public Cultivo() {
         initComponents();
