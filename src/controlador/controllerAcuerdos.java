@@ -36,6 +36,9 @@ public class controllerAcuerdos implements ActionListener {
         this.ac.btnMetodosPago.addActionListener(this);
         this.ac.btnRenovacion.addActionListener(this);
         this.ca.btnRegresar.addActionListener(this);
+        this.ca.btnInsert.addActionListener(this);
+        this.ca.btnDelete.addActionListener(this);
+        this.ca.btnModificar.addActionListener(this);
         this.co.btnRegresar.addActionListener(this);
         this.ct.btnRegresar.addActionListener(this);
         this.mp.btnRegresar.addActionListener(this);
@@ -64,7 +67,29 @@ public class controllerAcuerdos implements ActionListener {
             ca.setLocationRelativeTo(null);
             ca.setVisible(true);
             ac.setVisible(false);
+            ca.llenarCliente();
+            ca.llenarProd();
+            ca.llenarT();
+            ca.llenarContrato();
         }
+
+          if(ae.getSource()==ca.btnInsert){
+              ca.insert();
+          }
+          
+          if(ae.getSource()==ca.btnDelete){
+              ca.delete();
+          }
+          
+          if(ae.getSource()==ca.btnModificar){
+              ca.update();
+          }
+          
+          if(ae.getSource()==ca.btnRegresar){
+              iniciarAcuerdos();
+              ca.setVisible(false);
+              ac.setVisible(true);
+          }
         
         if(ae.getSource()==ca.btnRegresar){
             iniciarAcuerdos();
