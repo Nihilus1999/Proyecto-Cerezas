@@ -97,7 +97,7 @@ public class Renovacion extends javax.swing.JFrame {
                
                     stmt.executeUpdate(sql);
                     controllerLogin.conexion.commit();
-                    JOptionPane.showMessageDialog(null,"Se ha registrado el pago exitosamente");
+                    JOptionPane.showMessageDialog(null,"Se ha registrado la renovacion exitosamente");
                     llenarRenovacion();
                     limpiar();
            }

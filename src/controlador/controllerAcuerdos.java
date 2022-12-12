@@ -41,6 +41,9 @@ public class controllerAcuerdos implements ActionListener {
         this.co.btnModificar.addActionListener(this);
         this.co.btnDelete.addActionListener(this);
         this.ct.btnRegresar.addActionListener(this);
+        this.mp.btnInsertar.addActionListener(this);
+        this.mp.btnEliminar.addActionListener(this);
+        this.mp.btnModificar.addActionListener(this);
         this.mp.btnRegresar.addActionListener(this);
         this.re.btnRegresar.addActionListener(this);
         this.re.btnInsertar.addActionListener(this);
@@ -125,6 +128,19 @@ public class controllerAcuerdos implements ActionListener {
             mp.setLocationRelativeTo(null);
             mp.setVisible(true);
             ac.setVisible(false);
+            mp.llenarPro();
+        }
+        
+        if(ae.getSource()==mp.btnInsertar){
+            mp.insert();
+        }
+        
+        if(ae.getSource()==mp.btnEliminar){
+            mp.delete();
+        }
+        
+        if(ae.getSource()==mp.btnModificar){
+            mp.update();
         }
         
         if(ae.getSource()==mp.btnRegresar){
