@@ -18,20 +18,21 @@ import static vista.produccion.VariedadCerezas.validarNombre;
  */
 public class BeneficiosSalud extends javax.swing.JFrame {
     String benefios;
+    int flag;
     /**
      * Creates new form VariedadCerezas
      */
     public BeneficiosSalud() {
         initComponents();
         llenarBeneficios();
+        jTextArea1.setEditable(false);
+        flag=0;
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoApp.jpg")).getImage());
     }
-
     
     public void limpiar(){
         jTextArea1.setText(" ");
     }
-    
     
     public void llenarBeneficios(){
         limpiar();
@@ -76,22 +77,25 @@ public class BeneficiosSalud extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jImagen = new javax.swing.JLabel();
         btnModificar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jTitulo = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
+        jTitulo = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jAtras = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
-        jImagen = new javax.swing.JLabel();
         jFondoMenu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/saludMini.png"))); // NOI18N
+        getContentPane().add(jImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 100, 100));
 
         btnModificar.setBackground(new java.awt.Color(102, 102, 102));
         btnModificar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -121,6 +125,9 @@ public class BeneficiosSalud extends javax.swing.JFrame {
         btnEditar.setContentAreaFilled(false);
         btnEditar.setFocusPainted(false);
         btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnEditarMouseEntered(evt);
             }
@@ -136,10 +143,12 @@ public class BeneficiosSalud extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
+        jTextArea1.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jTextArea1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 430, 500));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 510, 490));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -171,28 +180,31 @@ public class BeneficiosSalud extends javax.swing.JFrame {
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 130, 43));
 
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
         jTitulo.setBackground(new java.awt.Color(82, 171, 28));
         jTitulo.setFont(new java.awt.Font("Bookman Old Style", 1, 35)); // NOI18N
         jTitulo.setForeground(new java.awt.Color(0, 0, 0));
         jTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jTitulo.setText("Beneficios para la salud");
         jTitulo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        getContentPane().add(jTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 450, -1));
-
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 45, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jTitulo)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 450, 45));
+        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 450, 45));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -219,9 +231,6 @@ public class BeneficiosSalud extends javax.swing.JFrame {
         jPanel3.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 172, 50));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 590, 172, 50));
-
-        jImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/saludMini.png"))); // NOI18N
-        getContentPane().add(jImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 490, 100, 100));
 
         jFondoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondoSalud.jpg"))); // NOI18N
         getContentPane().add(jFondoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 0, 600, 660));
@@ -255,8 +264,20 @@ public class BeneficiosSalud extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarMouseExited
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnModificarMouseClicked
+
+    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        if(flag==0){
+            jTextArea1.setEditable(true);
+            btnEditar.setText("No Editar");
+            flag=1;
+        }else{
+            jTextArea1.setEditable(false);
+            btnEditar.setText("Editar");
+            flag=0;
+        }
+    }//GEN-LAST:event_btnEditarMouseClicked
 
     /**
      * @param args the command line arguments

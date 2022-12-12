@@ -166,7 +166,6 @@ public class Productores extends javax.swing.JFrame {
                             + "(select id from aja_region where nombre='"+cbRegion.getSelectedItem().toString()+"' ), "
                             + " (select id from aja_pais where nombre='"+cbPais.getSelectedItem().toString()+"' ), "
                             + "'"+txtPaginaWeb.getText()+"')" ;
-                 
                     
                     int flag=0;
    /*ResultSet rs = stmt.executeQuery( "select var.nombre, pa.nombre from aja_variedad_de_cerezas var, aja_pais pa where var.id_pais = pa.id" );
@@ -178,7 +177,6 @@ public class Productores extends javax.swing.JFrame {
                             break;
                         }
                     }//*/
-
                     if(flag==0){
                         stmt.executeUpdate(sql);
                         controllerLogin.conexion.commit();
@@ -186,7 +184,6 @@ public class Productores extends javax.swing.JFrame {
                         llenarProductor();
                         limpiar();
                     }
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -197,9 +194,7 @@ public class Productores extends javax.swing.JFrame {
         try{
                 Statement stmt = controllerLogin.conexion.createStatement();
                 String sql = "DELETE FROM aja_productor where  id = " + id;
-
                 ResultSet rs = stmt.executeQuery( "select id from aja_productor" );
-
               int flag=0;
 
               while ( rs.next() ) {
@@ -221,10 +216,8 @@ public class Productores extends javax.swing.JFrame {
               if(flag == 0){
                   JOptionPane.showMessageDialog(null,"No se encontro el registro");
               }
-
            }catch (SQLException e) {
                e.printStackTrace();
-
            }     
     }
     
@@ -322,6 +315,11 @@ public class Productores extends javax.swing.JFrame {
 
         jPanel1.add(cbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 250, 25));
 
+        cbRegion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbRegionActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 250, 25));
 
         txtDireccion.setColumns(20);
@@ -598,30 +596,35 @@ public class Productores extends javax.swing.JFrame {
 
     private void cbAsocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAsocActionPerformed
         // TODO add your handling code here:
-        if (!cbAsoc.getSelectedItem().equals("")) {
-            
+        if (!cbAsoc.getSelectedItem().equals(" ") ) {
             try {
                 Statement stmt = controllerLogin.conexion.createStatement();
-                ResultSet rs = stmt.executeQuery( "select reg.id , reg.nombre"
-                        + "  from aja_region reg, aja_asociacion_regional asoc, aja_pais pais "
-                        + " where reg.id = " + id_region+" " 
-                        + " and reg.id=asoc.id_region and asoc.id_pais=reg.id_pais and reg.id_pais= pais.id  " );
+                ResultSet rs = stmt.executeQuery( "select asoc.id , asoc.nombre"
+                        + "  from aja_region reg, aja_asociacion_regional asoc "
+                        + " where asoc.nombre = " +cbAsoc.getSelectedItem().toString()+" " 
+                        + " and reg.id=asoc.id_region and asoc.id_pais=reg.id_pais " );
                     while( rs.next() ){
                         id = rs.getInt(1);
-                        String reg= rs.getString(2);
+                        String reg= rs.getString("nombre");
                         cbRegion.setSelectedItem(reg);
                     }
             } catch (SQLException e) {
                     e.printStackTrace();
             }
             cbRegion.setEnabled(false);
-        }else cbRegion.setEnabled(true);
+        }else {
+            cbRegion.setEnabled(true);
+        }
     }//GEN-LAST:event_cbAsocActionPerformed
 
     private void cbAsocItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAsocItemStateChanged
         // TODO add your handling code here:
         
     }//GEN-LAST:event_cbAsocItemStateChanged
+
+    private void cbRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRegionActionPerformed
+       
+    }//GEN-LAST:event_cbRegionActionPerformed
 
     /**
      * @param args the command line arguments
