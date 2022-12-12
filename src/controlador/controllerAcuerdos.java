@@ -40,6 +40,9 @@ public class controllerAcuerdos implements ActionListener {
         this.ct.btnRegresar.addActionListener(this);
         this.mp.btnRegresar.addActionListener(this);
         this.re.btnRegresar.addActionListener(this);
+        this.re.btnInsertar.addActionListener(this);
+        this.re.btnDelete.addActionListener(this);
+        this.re.btnModificar.addActionListener(this);
     }
     
     public void iniciarAcuerdos(){
@@ -120,7 +123,20 @@ public class controllerAcuerdos implements ActionListener {
             re.setLocationRelativeTo(null);
             re.setVisible(true);
             ac.setVisible(false);
+            re.llenarRenovacion();
         }
+        
+         if(ae.getSource()==re.btnInsertar){
+              re.inserts();
+          }
+          
+          if(ae.getSource()==re.btnDelete){
+              re.delete();
+          }
+          
+          if(ae.getSource()==re.btnModificar){
+              re.update();
+          }
         
         if(ae.getSource()==re.btnRegresar){
             iniciarAcuerdos();
