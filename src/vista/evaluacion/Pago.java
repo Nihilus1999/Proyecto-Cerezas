@@ -146,9 +146,7 @@ public class Pago extends javax.swing.JFrame {
                   + "(select id from aja_productor where nombre='"+ part3.trim() + "'),"
                   + "(select id from aja_contrato where id="+ part2.trim() + "),'"
                   + format.format(dcFecha.getDate()) +"' ,"
-                  +  spMonto.getValue() +")"
-                      + " where id ="+ part1.trim() + " ";
-                  
+                  +  spMonto.getValue() +")";
                 
                      if(format.format(dcFecha.getDate()).equals(format.format(fecha))){
                JOptionPane.showMessageDialog(null, " la fecha no puede ser la misma");

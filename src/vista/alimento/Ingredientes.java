@@ -92,11 +92,13 @@ public class Ingredientes extends javax.swing.JFrame {
                 Statement stmt = controllerLogin.conexion.createStatement();
                 String sql = "DELETE FROM aja_ingrediente where  id = " + id;
 
+                ResultSet rs = stmt.executeQuery( "select id from aja_ingrediente" );
+
                 stmt.executeUpdate(sql);
                 controllerLogin.conexion.commit();
                 JOptionPane.showMessageDialog(null,"Se ha borrado la region exitosamente");
-                limpiar();
                 llenarIngrediente();
+                limpiar();
 
            }catch (SQLException e) {
                e.printStackTrace();
