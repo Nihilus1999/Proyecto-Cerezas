@@ -431,7 +431,8 @@ public class Receta extends javax.swing.JFrame {
     }//GEN-LAST:event_cbClienteActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        try {
+        if ( cbIngrediente.getItemCount() > 1 ){
+            try {
             Statement stmt = controllerLogin.conexion.createStatement();
             ResultSet rs = stmt.executeQuery( "select id from aja_ingrediente where nombre = '"+cbIngrediente.getSelectedItem().toString()+"' " );
             while( rs.next() ){
@@ -441,9 +442,12 @@ public class Receta extends javax.swing.JFrame {
          } catch (SQLException e) {
                 e.printStackTrace();
         }
+        cbIngrediente.removeItem(cbIngrediente.getSelectedItem().toString());
         cbIngrediente.setSelectedIndex(0);
-        spiCantidad.setValue(1);
         txtMedida.setText("");
+        }else{
+            cbIngrediente.setEnabled(false);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
