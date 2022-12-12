@@ -99,7 +99,7 @@ public class Convenio extends javax.swing.JFrame {
                
                     stmt.executeUpdate(sql);
                     controllerLogin.conexion.commit();
-                    JOptionPane.showMessageDialog(null,"Se ha registrado el pago exitosamente");
+                    JOptionPane.showMessageDialog(null,"Se ha registrado el convenio exitosamente");
                     llenarConvenio();
                     limpiar();
            }
@@ -147,7 +147,7 @@ public class Convenio extends javax.swing.JFrame {
               
                     stmt.executeUpdate(sql);
                     controllerLogin.conexion.commit();
-                    JOptionPane.showMessageDialog(null,"Se ha registrado el pago exitosamente");
+                    JOptionPane.showMessageDialog(null,"Se ha registrado el convenio exitosamente");
                     llenarConvenio();
                     limpiar();
                 
