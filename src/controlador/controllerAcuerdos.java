@@ -40,9 +40,18 @@ public class controllerAcuerdos implements ActionListener {
         this.ca.btnDelete.addActionListener(this);
         this.ca.btnModificar.addActionListener(this);
         this.co.btnRegresar.addActionListener(this);
+        this.co.btnInsertar.addActionListener(this);
+        this.co.btnModificar.addActionListener(this);
+        this.co.btnDelete.addActionListener(this);
         this.ct.btnRegresar.addActionListener(this);
+        this.ct.btnInsertar.addActionListener(this);
+        this.ct.btnModificar.addActionListener(this);
+        this.ct.btnDelete.addActionListener(this);
         this.mp.btnRegresar.addActionListener(this);
         this.re.btnRegresar.addActionListener(this);
+        this.re.btnInsertar.addActionListener(this);
+        this.re.btnDelete.addActionListener(this);
+        this.re.btnModificar.addActionListener(this);
     }
     
     public void iniciarAcuerdos(){
@@ -103,7 +112,20 @@ public class controllerAcuerdos implements ActionListener {
             co.setLocationRelativeTo(null);
             co.setVisible(true);
             ac.setVisible(false);
+            co.llenarConvenio();
         }
+        
+         if(ae.getSource()==co.btnInsertar){
+              co.inserts();
+          }
+          
+          if(ae.getSource()==co.btnDelete){
+              co.delete();
+          }
+          
+          if(ae.getSource()==co.btnModificar){
+              co.update();
+          }
         
         if(ae.getSource()==co.btnRegresar){
              iniciarAcuerdos();
@@ -117,7 +139,20 @@ public class controllerAcuerdos implements ActionListener {
             ct.setLocationRelativeTo(null);
             ct.setVisible(true);
             ac.setVisible(false);
+            ct.llenarConvenioT();
         }
+        
+         if(ae.getSource()==ct.btnInsertar){
+              ct.inserts();
+          }
+          
+          if(ae.getSource()==ct.btnDelete){
+              ct.delete();
+          }
+          
+          if(ae.getSource()==ct.btnModificar){
+              ct.update();
+          }
         
         if(ae.getSource()==ct.btnRegresar){
              iniciarAcuerdos();
@@ -145,7 +180,20 @@ public class controllerAcuerdos implements ActionListener {
             re.setLocationRelativeTo(null);
             re.setVisible(true);
             ac.setVisible(false);
+            re.llenarRenovacion();
         }
+        
+         if(ae.getSource()==re.btnInsertar){
+              re.inserts();
+          }
+          
+          if(ae.getSource()==re.btnDelete){
+              re.delete();
+          }
+          
+          if(ae.getSource()==re.btnModificar){
+              re.update();
+          }
         
         if(ae.getSource()==re.btnRegresar){
             iniciarAcuerdos();
