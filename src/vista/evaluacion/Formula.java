@@ -82,7 +82,8 @@ public class Formula extends javax.swing.JFrame {
             Statement stmt = controllerLogin.conexion.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT 'Cliente: ' || ci.denominacion_comercial || ' / ' || pais.nombre  || ' / ' ||  'Variable: ' || va.nombre as cbFormula " +
             "from aja_formula fo ,aja_variable va, aja_cliente ci, aja_pais pais " +
-            "where fo.id_cliente = ci.id and fo.id_variable = va.id and ci.id_pais_ciudad=pais.id" );
+            "where fo.id_cliente = ci.id and fo.id_variable = va.id and ci.id_pais_ciudad=pais.id"
+                    + " order by ci.denominacion_comercial asc" );
             while ( rs.next() ) {
             String registro = rs.getString(1);
             cbFormula.addItem(registro);
