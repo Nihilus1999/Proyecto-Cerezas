@@ -169,6 +169,7 @@ public class controllerAcuerdos implements ActionListener {
             mp.setLocationRelativeTo(null);
             mp.setVisible(true);
             ac.setVisible(false);
+            mp.llenarPro();
         }
         
         if(ae.getSource()==mp.btnEliminar){

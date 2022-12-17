@@ -52,8 +52,6 @@ public class Contrato extends javax.swing.JFrame {
     }
     
     public void llenarT(){
-        cbTransporte.removeAllItems();
-        cbTransporte.addItem(" ");
         cbTransporte.addItem("Aereo");
         cbTransporte.addItem("Terrestre");
         cbTransporte.addItem("Maritimo");        
@@ -93,14 +91,15 @@ public class Contrato extends javax.swing.JFrame {
         }
     }
     
-    public void llenarMetodo(int myId){
+    public void llenarMetodo(){
         cbMetodo.removeAllItems();
         cbMetodo.addItem(" ");
         try {
             Statement stmt = controllerLogin.conexion.createStatement();
-            ResultSet rs = stmt.executeQuery( "Select met.tipo  "
-                    + " from AJA_METODO_DE_PAGO met, aja_contrato con "
-                    + " where con.ID_metodo_pago=met.id and con.ID_productor_metodo_pago= met.id_productor and con.id=" +myId+" " );
+            ResultSet rs = stmt.executeQuery( "Select 'Metodo #' || met.id  "
+                    + " from AJA_METODO_DE_PAGO met "
+                    + " where met.id_productor = (SELECT id from aja_productor where nombre = '"+cbProductor.getSelectedItem().toString()+"')"
+                            + " and met.id not in (select id from aja_contrato)  " );
             while ( rs.next() ) {
                 String registro = rs.getString(1);
                 cbMetodo.addItem(registro);
@@ -131,7 +130,6 @@ public class Contrato extends javax.swing.JFrame {
     
     public void insert(){
         try {
-           cortarCB(cbContrato);
            Statement stmt = controllerLogin.conexion.createStatement();
            String sql = " INSERT INTO aja_contrato " 
                    + " (id_cliente, id_productor, fecha_firma, tipo, estatus, precio_contrato, porcentaje_descuento, "
@@ -140,32 +138,19 @@ public class Contrato extends javax.swing.JFrame {
                    + " ( (select cli.id from aja_cliente cli where cli.denominacion_comercial='"+cbCliente.getSelectedItem().toString()+"' ), "
                    + " (select prod.id from aja_productor prod where prod.nombre='"+cbProductor.getSelectedItem().toString()+"' ), "
                    + " '"+format.format(dateFirma.getDate()) +"', "
-                   + " '"+cbTransporte.getSelectedItem().toString().charAt(1)+"', "
+                   + " '"+cbTransporte.getSelectedItem().toString().charAt(0)+"', "
                    + " '"+txtEstatus.getText()+"', "
                    + " "+txtPrecio.getText()+", "
                    + " "+txtDescuento.getText()+", "
-                   + " " +cbMetodo.getSelectedItem().toString()+", "
+                   + " " +cbMetodo.getSelectedItem().toString().replaceAll("Metodo #", "")+", "
                    + " (select prod.id from aja_productor prod where prod.nombre='"+cbProductor.getSelectedItem().toString()+"' ), "
-                   + " '"+format.format(dateFirma.getDate()) +"', "
-                   + " '"+txtRazon.getText()+"' );";
-           
-                   int flag=0;
-/*
-                   ResultSet rs = stmt.executeQuery( "" );
-                   while ( rs.next() ) {
-                       if( true ){///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                           JOptionPane.showMessageDialog(null, "El cultivo que intento registrar ya existe");
-                           flag=1;
-                           break;
-                       }
-                    }*/
-                   if(flag==0){
+                   + "null, null)";
                            stmt.executeUpdate(sql);
                            controllerLogin.conexion.commit();
+                     sql = "UPDATE aja_metodo_de_pago SET (contado_pago_contrato, contado_pago_envio) = ("+txtPrecio+"*.85, "+txtPrecio+"*.15) where id="+cbMetodo.getSelectedItem().toString().replaceAll("Metodo #", "")+" and tipo='contado'";
                            JOptionPane.showMessageDialog(null,"Se ha registrado exitosamente");
                            llenarContrato();
                            limpiar();
-                       }
 
                      } catch (SQLException e) {
                            e.printStackTrace();
@@ -289,16 +274,20 @@ public class Contrato extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresar.setText("Regresar");
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 680, 120, 30));
 
         txtEstatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEstatusActionPerformed(evt);
             }
         });
+        jPanel1.add(txtEstatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 381, 283, 25));
+        jPanel1.add(dateFirma, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 238, 283, 25));
 
         btnInsert.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnInsert.setForeground(new java.awt.Color(0, 0, 0));
@@ -308,6 +297,7 @@ public class Contrato extends javax.swing.JFrame {
                 btnInsertActionPerformed(evt);
             }
         });
+        jPanel1.add(btnInsert, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 120, 30));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
         jPanel2.setToolTipText("");
@@ -356,6 +346,8 @@ public class Contrato extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
         );
 
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 21, -1, -1));
+
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
         cbContratoEli.addActionListener(new java.awt.event.ActionListener() {
@@ -402,178 +394,86 @@ public class Contrato extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 613, -1, -1));
+
         txtProd1.setBackground(new java.awt.Color(0, 0, 0));
         txtProd1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtProd1.setForeground(new java.awt.Color(255, 255, 255));
         txtProd1.setText("Fecha de firma:");
+        jPanel1.add(txtProd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 208, -1, -1));
 
         txtProd2.setBackground(new java.awt.Color(0, 0, 0));
         txtProd2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtProd2.setForeground(new java.awt.Color(255, 255, 255));
         txtProd2.setText("Estatus:");
+        jPanel1.add(txtProd2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 351, -1, -1));
 
         txtProd3.setBackground(new java.awt.Color(0, 0, 0));
         txtProd3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtProd3.setForeground(new java.awt.Color(255, 255, 255));
         txtProd3.setText("Precio del contrato ($):");
+        jPanel1.add(txtProd3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 421, -1, -1));
 
         txtPrecio.setPreferredSize(new java.awt.Dimension(64, 25));
+        jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 451, 283, -1));
+        jPanel1.add(dateCancela, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 451, 283, 25));
 
         txtProd4.setBackground(new java.awt.Color(0, 0, 0));
         txtProd4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtProd4.setForeground(new java.awt.Color(255, 255, 255));
         txtProd4.setText("Fecha cancelacion:");
+        jPanel1.add(txtProd4, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 421, -1, -1));
 
-        cbTransporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbTransporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbTransporteActionPerformed(evt);
-            }
-        });
+        jPanel1.add(cbTransporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 308, 283, 25));
 
         txtProd5.setBackground(new java.awt.Color(0, 0, 0));
         txtProd5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtProd5.setForeground(new java.awt.Color(255, 255, 255));
         txtProd5.setText("Tipo de transporte:");
+        jPanel1.add(txtProd5, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 278, -1, -1));
 
         txtProd6.setBackground(new java.awt.Color(0, 0, 0));
         txtProd6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtProd6.setForeground(new java.awt.Color(255, 255, 255));
         txtProd6.setText("Porcentaje de descuento:");
+        jPanel1.add(txtProd6, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 211, -1, -1));
+        jPanel1.add(txtDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 238, 283, 25));
 
         txtProd7.setBackground(new java.awt.Color(0, 0, 0));
         txtProd7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtProd7.setForeground(new java.awt.Color(255, 255, 255));
         txtProd7.setText("Razon de cancelacion:");
+        jPanel1.add(txtProd7, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 278, -1, -1));
+        jPanel1.add(txtRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 308, 283, 98));
 
         txtProd8.setBackground(new java.awt.Color(0, 0, 0));
         txtProd8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtProd8.setForeground(new java.awt.Color(255, 255, 255));
         txtProd8.setText("Cliente:");
+        jPanel1.add(txtProd8, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 135, -1, -1));
 
-        cbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 165, 283, 25));
 
         txtProd9.setBackground(new java.awt.Color(0, 0, 0));
         txtProd9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtProd9.setForeground(new java.awt.Color(255, 255, 255));
         txtProd9.setText("Productor:");
+        jPanel1.add(txtProd9, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 135, -1, -1));
 
-        cbProductor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbProductor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbProductorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbProductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 165, 283, 25));
 
         txtProd10.setBackground(new java.awt.Color(0, 0, 0));
         txtProd10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtProd10.setForeground(new java.awt.Color(255, 255, 255));
         txtProd10.setText("Metodo de pago:");
+        jPanel1.add(txtProd10, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 488, -1, -1));
 
-        cbMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(btnRegresar))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtProd1)
-                                .addComponent(txtProd2)
-                                .addComponent(txtEstatus)
-                                .addComponent(dateFirma, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtProd3)
-                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cbTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProd5)
-                            .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProd8)
-                            .addComponent(cbMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProd10))
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtProd7)
-                            .addComponent(dateCancela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtProd4)
-                            .addComponent(txtProd6)
-                            .addComponent(txtDescuento)
-                            .addComponent(txtRazon, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProd9)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtProd8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtProd9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtProd1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtProd6)
-                        .addGap(3, 3, 3)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtDescuento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateFirma, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtProd5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtProd2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtProd7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRazon, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtProd3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtProd4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dateCancela, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtProd10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegresar))
-                .addGap(29, 29, 29))
-        );
+        jPanel1.add(cbMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 518, 283, 25));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -634,7 +534,6 @@ public class Contrato extends javax.swing.JFrame {
                             cbCliente.setSelectedItem(cli);
                             cbProductor.setSelectedItem(prod);
                         }
-                        llenarMetodo(id);
                 } catch (SQLException e) {
                         e.printStackTrace();
                 }
@@ -670,9 +569,15 @@ public class Contrato extends javax.swing.JFrame {
         }    
     }//GEN-LAST:event_cbContratoEliActionPerformed
 
-    private void cbTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTransporteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbTransporteActionPerformed
+    private void cbProductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProductorActionPerformed
+        if (cbProductor.getItemCount() > 1){
+            if(!cbProductor.getSelectedItem().toString().equals(" ")){
+                llenarMetodo();
+            }else{
+                
+            }
+        }
+    }//GEN-LAST:event_cbProductorActionPerformed
 
     /**
      * @param args the command line arguments

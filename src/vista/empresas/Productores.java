@@ -595,26 +595,7 @@ public class Productores extends javax.swing.JFrame {
     }//GEN-LAST:event_cbCiudadActionPerformed
 
     private void cbAsocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAsocActionPerformed
-        // TODO add your handling code here:
-        if (!cbAsoc.getSelectedItem().equals(" ") ) {
-            try {
-                Statement stmt = controllerLogin.conexion.createStatement();
-                ResultSet rs = stmt.executeQuery( "select asoc.id , asoc.nombre"
-                        + "  from aja_region reg, aja_asociacion_regional asoc "
-                        + " where asoc.nombre = " +cbAsoc.getSelectedItem().toString()+" " 
-                        + " and reg.id=asoc.id_region and asoc.id_pais=reg.id_pais " );
-                    while( rs.next() ){
-                        id = rs.getInt(1);
-                        String reg= rs.getString("nombre");
-                        cbRegion.setSelectedItem(reg);
-                    }
-            } catch (SQLException e) {
-                    e.printStackTrace();
-            }
-            cbRegion.setEnabled(false);
-        }else {
-            cbRegion.setEnabled(true);
-        }
+      
     }//GEN-LAST:event_cbAsocActionPerformed
 
     private void cbAsocItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAsocItemStateChanged
