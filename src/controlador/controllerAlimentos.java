@@ -32,6 +32,8 @@ public class controllerAlimentos implements ActionListener {
         this.in.btnInsertar.addActionListener(this);
         this.in.btnModificar.addActionListener(this);
         this.in.btnDelete.addActionListener(this);
+        this.re.btnEliminar.addActionListener(this);
+        this.re.btnInsertar.addActionListener(this);
         this.re.btnRegresar.addActionListener(this);
     }
     
@@ -103,6 +105,16 @@ public class controllerAlimentos implements ActionListener {
             re.setLocationRelativeTo(null);
             re.setVisible(true);
             al.setVisible(false);
+            re.llenarCBs();
+            re.llenarCbRaceta();
+        }
+        
+        if(ae.getSource()==re.btnEliminar){
+           re.delete();
+        }
+        
+        if(ae.getSource()==re.btnInsertar){
+           re.insert();
         }
         
         if(ae.getSource()==re.btnRegresar){
